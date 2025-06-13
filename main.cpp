@@ -212,12 +212,12 @@ numOfEquimentStorageShelves(10),
 numOfAllLockers(8),
 backStageSize(size)
 {
-    std::cout << "\n[Constructor] A backstage area of " << backStageSize << " square meters being constructed!" << std::endl;
+    std::cout << "\n[Constructor] A " << backStageSize << "-square-meters backstage area is being constructed!" << std::endl;
 }
 
 BackstageArea::~BackstageArea()
 {
-    std::cout << "\n[Destructor] A backstage area of " << backStageSize << " square meters being destructed!" << std::endl;
+    std::cout << "\n[Destructor] A " << backStageSize << "-square-meters backstage area is being destructed!" << std::endl;
 }
 
 void BackstageArea::provideRestingSpaceForPerformers()
@@ -269,7 +269,8 @@ int BackstageArea::storePersonalBelongings(int requiredLockers)
  */
 struct LightingRig //9, Nested UDT
 {
-    LightingRig();
+    LightingRig(std::string type);
+    ~LightingRig();
 
     int numOfDMXChannels = 4;
     int numOfTraditionalLights = 12;
@@ -280,7 +281,8 @@ struct LightingRig //9, Nested UDT
 
     struct LightingConsole
     {
-        LightingConsole();
+        LightingConsole(std::string name);
+        ~LightingConsole();
 
         int numOfScreens = 3;
         int numOfFaders = 8;
@@ -300,20 +302,30 @@ struct LightingRig //9, Nested UDT
     void synchronizeLightingWithMusic(LightingConsole consoleInUse);
     void testDMXChannels();
 
-    LightingConsole mainConsole;
+    LightingConsole mainConsole{"Tiger Touch"};
 };
 
-LightingRig::LightingConsole::LightingConsole():
+LightingRig::LightingConsole::LightingConsole(std::string name):
 hasInternetConnectivity(true),
-consoleName("GrandMA3")
+consoleName(name)
 {
-    std::cout << "\nLightingConsole being constructed!" << std::endl;
+    std::cout << "\n[Constructor] A " << consoleName << " console is being constructed!" << std::endl;
 }
 
-LightingRig::LightingRig():
-lightingConsoleType("MA Lighting")
+LightingRig::LightingConsole::~LightingConsole()
 {
-    std::cout << "\nLighitngRig being constructed!" << std::endl;
+    std::cout << "\n[Destructor] A " << consoleName << " console is being destructed!" << std::endl;
+}
+
+LightingRig::LightingRig(std::string type):
+lightingConsoleType(type)
+{
+    std::cout << "\n[Constructor] A " << lightingConsoleType << " lighitng rig is being constructed!" << std::endl;
+}
+
+LightingRig::~LightingRig()
+{
+    std::cout << "\n[Destructor] A " << lightingConsoleType << " lighitng rig is being destructed!" << std::endl;
 }
 
 void LightingRig::illuminateTheStage()
@@ -404,10 +416,10 @@ int main()
     bsa1.numOfEmptyLockers = 0;
     std::cout << "----------------\n";
 
-    LightingRig ltr;
+    LightingRig ltr{"Avolites"};
     std::cout << "----------------\n";
 
-    LightingRig::LightingConsole lc;
+    LightingRig::LightingConsole lc{"Pearl"};
     std::cout << "----------------\n";
 
 
