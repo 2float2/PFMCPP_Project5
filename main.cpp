@@ -415,7 +415,7 @@ AlbumRemake::~AlbumRemake()
 
 void AlbumRemake::displayOneDAWProject(DAWProject p)
 {
-    std::cout << "You are viewing the project: " << p.projectName << std::endl;
+    std::cout << "\nYou are viewing the project: " << p.projectName << std::endl;
 }
 
 void AlbumRemake::displayAllProjectName()
@@ -431,6 +431,41 @@ void AlbumRemake::displayAllProjectName()
  new UDT 5:
  with 2 member functions
  */
+struct ConcertHall
+{
+    ConcertHall(std::string name);
+    ~ConcertHall();
+
+    BackstageArea leftBackstageArea {375.5};
+    BackstageArea rightBackstageArea {525.5};
+    LightingRig mainRig {"MA Lighting"};
+    LightingRig subRig {"Avolites"};
+
+    void displayAllBackstageAreaSize();
+    void displayAllLightingRigType();
+};
+
+ConcertHall::ConcertHall(std::string name)
+{
+    std::cout << "\n[CTOR ConcertHall] "<< name << " is being constructed!" << std::endl;
+}
+
+ConcertHall::~ConcertHall()
+{
+    std::cout << "\n[DTOR ConcertHall] The concert hall is being destructed!" << std::endl;
+}
+
+void ConcertHall::displayAllBackstageAreaSize()
+{
+    std::cout << "\nThe left backstage area is " << leftBackstageArea.backStageSize << " square meters" << std::endl;
+    std::cout << "\nThe right backstage area is " << rightBackstageArea.backStageSize << " square meters" << std::endl;
+}
+
+void ConcertHall::displayAllLightingRigType()
+{
+    std::cout << "\nThe main lighting rig is " << mainRig.lightingConsoleType << std::endl;
+    std::cout << "\nThe sub lighting rig is " << subRig.lightingConsoleType << std::endl;
+}
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -470,6 +505,11 @@ int main()
     AlbumRemake ar {"My favourite songs", "Fuzz War", "Super Octave", "Nord Stage 3 HA88"};
     //ar.displayAllProjectName();
     std::cout << "----------------\n";
+
+    ConcertHall ch {"Tokyo Dome"};
+    std::cout << "----------------\n";
+
+
     
     dawp.playBackComposition();
     dawp.applyAudioEffects("reverb", dawp.vst);
@@ -488,7 +528,6 @@ int main()
     std::cout << "----------------\n";
 
 
-
     
     bsa.provideRestingSpaceForPerformers();
     bsa.storeCablesAndInstruments();
@@ -503,7 +542,6 @@ int main()
     std::cout << "----------------\n";
 
 
-
     
     ltr.illuminateTheStage();
     ltr.changeLightingColorsAndPatterns(ltr.mainConsole);
@@ -513,7 +551,6 @@ int main()
     std::cout << "----------------\n";
 
 
-
     
     lc.panAndTiltLights(5, 135.0, 60.0);
     lc.adjustLightIntensity(1, 100.0);
@@ -521,9 +558,20 @@ int main()
     std::cout << "\n[Member Initialization] The lighting console has " << lc.numOfFaders << " faders" << std::endl;
     lc.testFaders();
     std::cout << "----------------\n";
+
     
 
+    ar.displayOneDAWProject(ar.betcover);
+    ar.displayAllProjectName();
+    std::cout << "----------------\n";
 
 
+    
+    ch.displayAllBackstageAreaSize();
+    ch.displayAllLightingRigType();
+    std::cout << "----------------\n";
+
+
+    
     std::cout << "good to go!" << std::endl;
 }
