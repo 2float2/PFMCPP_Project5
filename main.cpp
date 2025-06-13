@@ -79,6 +79,7 @@ struct DAWProject //1, Nested UDT
     DAWProject(std::string dawProjectName);
     ~DAWProject();
 
+
     std::string timeSignature = "3/4";
     std::string musicalMode = "minor";
     std::string keySignature = "A";
@@ -108,23 +109,22 @@ struct DAWProject //1, Nested UDT
     void applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse);    
     void quantizeNotes();
 
-    VirtualStudioTechnology virtualGuitar{"Ample Sound Guitar"};
+    VirtualStudioTechnology vst{"Kontakt"};
 
 };
 
-DAWProject::VirtualStudioTechnology::VirtualStudioTechnology(std::string vst) :
-vstName(vst),
+DAWProject::VirtualStudioTechnology::VirtualStudioTechnology(std::string vstn) :
+vstName(vstn),
 vstManufacturer("Toontrack"),
 vstType("virtual instrument")
 {
     numOfPresets = 100;
-    std::cout << "\n[Constructor] " << vstName << " being constructed!" << std::endl;
-
+    std::cout << "\n[CTOR VirtualStudioTechnology] " << vstName << std::endl;
 }
 
 DAWProject::VirtualStudioTechnology::~VirtualStudioTechnology()
 {
-    std::cout << "\n[Destructor] " << vstName << " being destructed!" << std::endl;
+    std::cout << "\n[DTOR VirtualStudioTechnology] " << vstName << std::endl;
 }
 
 DAWProject::DAWProject(std::string dawProjectName) :
@@ -132,12 +132,12 @@ numOfSections(8),
 isQuantized(true),
 projectName(dawProjectName)
 {
-    std::cout << "\n[Constructor] " << projectName << " being constructed!" << std::endl;
+    std::cout << "\n[CTOR DAWProject] " << projectName << std::endl;
 }
 
 DAWProject::~DAWProject()
 {
-    std::cout << "\n[Destructor] " << projectName << " being destructed!" << std::endl;
+    std::cout << "\n[DTOR DAWProject] " << projectName << std::endl;
 }
 
 void DAWProject::playBack()
@@ -212,12 +212,12 @@ numOfEquimentStorageShelves(10),
 numOfAllLockers(8),
 backStageSize(size)
 {
-    std::cout << "\n[Constructor] A " << backStageSize << "-square-meters backstage area is being constructed!" << std::endl;
+    std::cout << "\n[CTOR BackstageArea] A " << backStageSize << "-square-meters backstage area is being constructed!" << std::endl;
 }
 
 BackstageArea::~BackstageArea()
 {
-    std::cout << "\n[Destructor] A " << backStageSize << "-square-meters backstage area is being destructed!" << std::endl;
+    std::cout << "\n[DTOR BackstageArea] A " << backStageSize << "-square-meters backstage area is being destructed!" << std::endl;
 }
 
 void BackstageArea::provideRestingSpaceForPerformers()
@@ -302,30 +302,31 @@ struct LightingRig //9, Nested UDT
     void synchronizeLightingWithMusic(LightingConsole consoleInUse);
     void testDMXChannels();
 
-    LightingConsole mainConsole{"Tiger Touch"};
+    LightingConsole mainConsole {"Tiger Touch"};
+
 };
 
 LightingRig::LightingConsole::LightingConsole(std::string name):
 hasInternetConnectivity(true),
 consoleName(name)
 {
-    std::cout << "\n[Constructor] A " << consoleName << " console is being constructed!" << std::endl;
+    std::cout << "\n[CTOR LightingConsole] A " << consoleName << " console is being constructed!" << std::endl;
 }
 
 LightingRig::LightingConsole::~LightingConsole()
 {
-    std::cout << "\n[Destructor] A " << consoleName << " console is being destructed!" << std::endl;
+    std::cout << "\n[DTOR LightingConsole] A " << consoleName << " console is being destructed!" << std::endl;
 }
 
 LightingRig::LightingRig(std::string type):
 lightingConsoleType(type)
 {
-    std::cout << "\n[Constructor] A " << lightingConsoleType << " lighitng rig is being constructed!" << std::endl;
+    std::cout << "\n[CTOR LightingRig] A " << lightingConsoleType << " lighitng rig is being constructed!" << std::endl;
 }
 
 LightingRig::~LightingRig()
 {
-    std::cout << "\n[Destructor] A " << lightingConsoleType << " lighitng rig is being destructed!" << std::endl;
+    std::cout << "\n[DTOR LightingRig] A " << lightingConsoleType << " lighitng rig is being destructed!" << std::endl;
 }
 
 void LightingRig::illuminateTheStage()
@@ -381,6 +382,50 @@ void LightingRig::LightingConsole::testFaders()
  new UDT 4:
  with 2 member functions
  */
+struct AlbumRemake
+{
+    AlbumRemake(std::string name, std::string vst1, std::string vst2, std::string vst3);
+    ~AlbumRemake();
+
+    std::string albumName;
+    DAWProject betcover {"野猿"};
+    DAWProject maruja {"Drift Like Cloud, Flow Like Water"};
+    DAWProject bcnr {"For the Cold Country"};
+
+    void displayOneDAWProject(DAWProject p);
+    void displayAllProjectName();    
+};
+
+AlbumRemake::AlbumRemake(std::string name, std::string vst1, std::string vst2, std::string vst3):
+albumName(name)
+{
+    std::cout << "\n[CTOR AlbumRemake] '"<< albumName << "' remake project is being constructed!" << std::endl;
+
+    betcover.vst.vstName = vst1;
+    maruja.vst.vstName = vst2;
+    bcnr.vst.vstName = vst3;
+    
+    displayOneDAWProject(maruja);
+}
+
+AlbumRemake::~AlbumRemake()
+{
+    std::cout << "\n[DTOR AlbumRemake] The "<< albumName << " remake project is being destructed!" << std::endl;
+}
+
+void AlbumRemake::displayOneDAWProject(DAWProject p)
+{
+    std::cout << "You are viewing the project: " << p.projectName << std::endl;
+}
+
+void AlbumRemake::displayAllProjectName()
+{
+    std::cout << "\nWhat are we working on?\n";
+    std::cout << "\nFirst project: " << betcover.projectName << std::endl;
+    std::cout << "\nSecond project: " << maruja.projectName << std::endl;
+    std::cout << "\nThird project: " << bcnr.projectName << std::endl;
+}
+
 
 /*
  new UDT 5:
@@ -404,10 +449,10 @@ void LightingRig::LightingConsole::testFaders()
 #include <iostream>
 int main()
 {
-    DAWProject dawp{"betcover!! Go Go Steam"};
+    DAWProject dawp {"betcover!! Go Go Steam"};
     std::cout << "----------------\n";
 
-    DAWProject::VirtualStudioTechnology vst{"Superior Drummer"};
+    DAWProject::VirtualStudioTechnology vst {"Superior Drummer"};
     std::cout << "----------------\n";
 
     BackstageArea bsa(500.0);
@@ -416,19 +461,20 @@ int main()
     bsa1.numOfEmptyLockers = 0;
     std::cout << "----------------\n";
 
-    LightingRig ltr{"Avolites"};
+    LightingRig ltr {"Avolites"};
     std::cout << "----------------\n";
 
-    LightingRig::LightingConsole lc{"Pearl"};
+    LightingRig::LightingConsole lc {"Pearl"};
     std::cout << "----------------\n";
 
-
-
+    AlbumRemake ar {"My favourite songs", "Fuzz War", "Super Octave", "Nord Stage 3 HA88"};
+    //ar.displayAllProjectName();
+    std::cout << "----------------\n";
     
     dawp.playBackComposition();
-    dawp.applyAudioEffects("reverb", dawp.virtualGuitar);
+    dawp.applyAudioEffects("reverb", dawp.vst);
     dawp.quantizeNotes();
-    std::cout << "\n[Member Initialization] A " << dawp.virtualGuitar.vstName << " is being used" << std::endl;
+    std::cout << "\n[Member Initialization] A " << dawp.vst.vstName << " is being used" << std::endl;
     std::cout << "\n[Member Initialization] Is the project quantized? " << (dawp.isQuantized ? "Yes" : "No") << std::endl;
     std::cout << "----------------\n";
 
