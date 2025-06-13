@@ -190,9 +190,10 @@ void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(int numOfMIDIInp
 /*
  copied UDT 2:
  */
-struct BackstageArea //7
+struct BackstageArea //2
 {
-    BackstageArea();
+    BackstageArea(double size);
+    ~BackstageArea();
 
     int numOfEmptyLockers, numOfDressingRooms, numOfEquimentStorageShelves,numOfAllLockers;
     double backStageSize;
@@ -204,14 +205,19 @@ struct BackstageArea //7
     int storePersonalBelongings(int requiredLockers);
 };
 
-BackstageArea::BackstageArea() :
+BackstageArea::BackstageArea(double size) :
 numOfEmptyLockers(5),
 numOfDressingRooms(3),
 numOfEquimentStorageShelves(10),
 numOfAllLockers(8),
-backStageSize(500.0)
+backStageSize(size)
 {
-    std::cout << "\nBackstageArea being constructed!" << std::endl;
+    std::cout << "\n[Constructor] A backstage area of " << backStageSize << " square meters being constructed!" << std::endl;
+}
+
+BackstageArea::~BackstageArea()
+{
+    std::cout << "\n[Destructor] A backstage area of " << backStageSize << " square meters being destructed!" << std::endl;
 }
 
 void BackstageArea::provideRestingSpaceForPerformers()
@@ -392,9 +398,9 @@ int main()
     DAWProject::VirtualStudioTechnology vst{"Superior Drummer"};
     std::cout << "----------------\n";
 
-    BackstageArea bsa;
-    BackstageArea bsa0;
-    BackstageArea bsa1;
+    BackstageArea bsa(500.0);
+    BackstageArea bsa0(300.0);
+    BackstageArea bsa1(150.0);
     bsa1.numOfEmptyLockers = 0;
     std::cout << "----------------\n";
 
