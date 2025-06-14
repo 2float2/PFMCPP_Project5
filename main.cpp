@@ -202,7 +202,7 @@ struct BackstageArea //2
     void provideRestingSpaceForPerformers();
     void storeCablesAndInstruments();
     void provideStorageForPersonalBelongings();
-    int storePersonalBelongings(int requiredLockers);
+    int storePersonalBelongings();
 };
 
 BackstageArea::BackstageArea(double size) :
@@ -235,34 +235,18 @@ void BackstageArea::provideStorageForPersonalBelongings()
     std::cout << "\nProvide storage for personal belongings with " << numOfAllLockers << " lockers" << std::endl;
 }
 
-int BackstageArea::storePersonalBelongings(int requiredLockers)
+int BackstageArea::storePersonalBelongings()
 {    
-    if(numOfEmptyLockers > 0)
+    if(numOfEmptyLockers != 0)
     {
-        while(requiredLockers > 0 && numOfEmptyLockers > 0)
+        while(numOfEmptyLockers > 0)
         {
-            --requiredLockers;
             --numOfEmptyLockers;
-            std::cout << "\n[Loop] 1 locker allocated. Remaining: " 
-                << numOfEmptyLockers << std::endl;
-        }
-
-        if(numOfEmptyLockers == 0)
-        {
-            std::cout << "\n[Info] All Lockers are now occupied" << std::endl;
-            return 0;
-        }
-        else
-        {
-            std::cout << "\n[Info] All requested lockers allocated" << std::endl;
-            return requiredLockers;
+            std::cout << "\n[Loop] 1 locker allocated. Remaining: " << numOfEmptyLockers << std::endl;
         }
     }
-    else
-    {
-        std::cout << "\n[Error] Sorry, there are no empty lockers left!" << std::endl;
-        return -1;
-    }        
+    std::cout << "\n[Loop] Sorry, there are no empty lockers left" << std::endl;
+    return numOfEmptyLockers;
 }
 /*
  copied UDT 3:
@@ -491,7 +475,6 @@ int main()
     std::cout << "----------------\n";
 
     BackstageArea bsa(500.0);
-    BackstageArea bsa0(300.0);
     BackstageArea bsa1(150.0);
     bsa1.numOfEmptyLockers = 0;
     std::cout << "----------------\n";
@@ -534,11 +517,9 @@ int main()
     bsa.provideStorageForPersonalBelongings();
     std::cout << "\n[Member Initialization] There are " << bsa.numOfAllLockers << " lockers in the backstage area" << std::endl;
     std::cout << "\n // Case 1: Demand < available lockers \n";
-    bsa.storePersonalBelongings(4); 
-    std::cout << "\n // Case 1: Demand > available lockers \n";
-    bsa0.storePersonalBelongings(5);
-    std::cout << "\n // Case 3: No lockers available (numOfEmptyLockers = 0) \n";
-    bsa1.storePersonalBelongings(2);
+    bsa.storePersonalBelongings(); 
+    std::cout << "\n // Case 2: No lockers available (numOfEmptyLockers = 0) \n";
+    bsa1.storePersonalBelongings();
     std::cout << "----------------\n";
 
 
