@@ -106,7 +106,7 @@ struct DAWProject //1, Nested UDT
 
     void playBack();
     void playBackComposition();
-    void applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse);    
+    void applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse); 
     void quantizeNotes();
 
     VirtualStudioTechnology vst{"Kontakt"};
@@ -331,7 +331,7 @@ void LightingRig::synchronizeLightingWithMusic(LightingConsole consoleInUse)
 void LightingRig::testDMXChannels()
 {
     std::cout << "Testing DMX channels..." << std::endl;
-    for(int i =0 ; i < numOfDMXChannels; ++i)
+    for(int i = 0; i < numOfDMXChannels; ++i)
     {
         std::cout << "\n[Loop] Now testing DMX channel [" << i + 1 << "]" << std::endl;
     }
@@ -356,7 +356,7 @@ void LightingRig::LightingConsole::changeGoboPattern(int lightNumber, std::strin
 void LightingRig::LightingConsole::testFaders()
 {
     std::cout << "Testing faders..." << std::endl;
-    for(int i =0 ; i < numOfFaders; ++i)
+    for(int i = 0; i < numOfFaders; ++i)
     {
         std::cout << "\n[Loop] Now testing faders [" << i + 1 << "]" << std::endl;
     }
@@ -377,7 +377,7 @@ struct AlbumRemake
     DAWProject bcnr {"For the Cold Country"};
 
     void displayOneDAWProject(DAWProject p);
-    void displayAllProjectName();    
+    void displayAllProjectName(); 
 };
 
 AlbumRemake::AlbumRemake(std::string name, std::string vst1, std::string vst2, std::string vst3):
@@ -517,7 +517,7 @@ int main()
     bsa.provideStorageForPersonalBelongings();
     std::cout << "\n[Member Initialization] There are " << bsa.numOfAllLockers << " lockers in the backstage area" << std::endl;
     std::cout << "\n // Case 1: Demand < available lockers \n";
-    bsa.storePersonalBelongings(); 
+    bsa.storePersonalBelongings();
     std::cout << "\n // Case 2: No lockers available (numOfEmptyLockers = 0) \n";
     bsa1.storePersonalBelongings();
     std::cout << "----------------\n";
