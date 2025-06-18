@@ -107,12 +107,14 @@ struct DAWProject //1, Nested UDT
         void outputAudio(double outputVolume = 80.0);
         std::string changePreset(std::string presetName);
         void testMIDIInputChannels(int numOfMIDIInputChannels = 2);
+        void printDetailedMemberInfo();
     };
 
     void playBack();
     void playBackComposition();
     void applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse); 
     void quantizeNotes();
+    void printDetailedMemberInfo();
 
     VirtualStudioTechnology vst{"Kontakt"};
 
@@ -168,6 +170,11 @@ void DAWProject::quantizeNotes()
     std::cout << "\nAre the MIDI notes quantized? " << (isQuantized? "Yes":"No") << std::endl;
 }
 
+void DAWProject::printDetailedMemberInfo()
+{
+    
+}
+
 void DAWProject::VirtualStudioTechnology::acceptMIDIInput()
 {
     std::cout << "\nCurrent VST accepts MIDI input? " << (supportsMIDI? "Yes":"No") << std::endl;
@@ -192,6 +199,12 @@ void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(int numOfMIDIInp
     }
     std::cout << "\n[Loop] MIDI input channels test complete!" << std::endl;
 }
+
+void DAWProject::VirtualStudioTechnology::printDetailedMemberInfo()
+{
+    
+}
+
 /*
  copied UDT 2:
  */
@@ -208,6 +221,7 @@ struct BackstageArea //2
     void storeCablesAndInstruments();
     void provideStorageForPersonalBelongings();
     int storePersonalBelongings();
+    void printDetailedMemberInfo();
 };
 
 BackstageArea::BackstageArea(double size) :
@@ -253,6 +267,12 @@ int BackstageArea::storePersonalBelongings()
     std::cout << "\n[Loop] Sorry, there are no empty lockers left" << std::endl;
     return numOfEmptyLockers;
 }
+
+void BackstageArea::printDetailedMemberInfo()
+{
+    
+}
+
 /*
  copied UDT 3:
  */
@@ -283,6 +303,7 @@ struct LightingRig //9, Nested UDT
         void adjustLightIntensity(int lightNumber, double intensity = 100.0);
         void changeGoboPattern(int lightNumber, std::string patternName = "star");
         void testFaders();
+        void printDetailedMemberInfo();
 
     };
 
@@ -290,6 +311,7 @@ struct LightingRig //9, Nested UDT
     void changeLightingColorsAndPatterns(LightingConsole consoleInUse);
     void synchronizeLightingWithMusic(LightingConsole consoleInUse);
     void testDMXChannels();
+    void printDetailedMemberInfo();
 
     LightingConsole mainConsole {"Tiger Touch"};
 
@@ -343,6 +365,11 @@ void LightingRig::testDMXChannels()
     std::cout << "\n[Loop] DMX channel test complete!" << std::endl;
 }
 
+void LightingRig::printDetailedMemberInfo()
+{
+    
+}
+
 void LightingRig::LightingConsole::panAndTiltLights(int lightNumber, double panAngle, double tiltAngle)
 {
     std::cout << "\nPan and tilt light " << lightNumber << " to " << panAngle << " and " << tiltAngle << std::endl;
@@ -367,6 +394,12 @@ void LightingRig::LightingConsole::testFaders()
     }
     std::cout << "\n[Loop] Faders channel test complete!" << std::endl;
 }
+
+void LightingRig::LightingConsole::printDetailedMemberInfo()
+{
+    
+}
+
 /*
  new UDT 4:
  with 2 member functions
@@ -557,6 +590,29 @@ int main()
     ch.displayAllLightingRigType();
     std::cout << "----------------\n";
 
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << "----------------------------------------------------------\n";
+    std::cout << "------------------------ Project 5.2 'this' keyword ---------------------------\n";
+    std::cout << "----------------------------------------------------------\n";
+    //DAWProject
+    std::cout << 
+    dawp.printDetailedMemberInfo();
+
+    //VirtualStudioTechnology
+    vst.printDetailedMemberInfo();
+
+    //BackstageArea
+    bsa.printDetailedMemberInfo();
+
+    //LightingRig
+    ltr.printDetailedMemberInfo();
+
+    //LightingConsole
+    lc.printDetailedMemberInfo();
 
     
     std::cout << "good to go!" << std::endl;
