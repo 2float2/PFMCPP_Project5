@@ -26,9 +26,9 @@ Create a branch named Part2
  4) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
  */
 
- /*
-  example:
-  */
+/*
+ example:
+ */
 #include <iostream>
 namespace Example
 {
@@ -47,7 +47,7 @@ namespace Example
     MyFoo::MyFoo() { std::cout << "creating MyFoo" << std::endl; }
     MyFoo::~MyFoo() { std::cout << "destroying MyFoo" << std::endl; }
 
-    // 2a) the member function whose function body is almost identical to the std::cout statement in main.
+        // 2a) the member function whose function body is almost identical to the std::cout statement in main.
     //Remember to NAME FUNCTIONS WHAT THEY DO.
     void MyFoo::printDetailedMemberInfo() //function name contains a verb!!!
     {
@@ -118,14 +118,14 @@ struct DAWProject //1, Nested UDT
     std::string getTrackType();
     void printDetailedMemberInfo();
 
-    VirtualStudioTechnology vst{ "Kontakt" };
+    VirtualStudioTechnology vst{"Kontakt"};
 
 };
 
 DAWProject::VirtualStudioTechnology::VirtualStudioTechnology(std::string vstn) :
-    vstName(vstn),
-    vstManufacturer("Toontrack"),
-    vstType("virtual instrument")
+vstName(vstn),
+vstManufacturer("Toontrack"),
+vstType("virtual instrument")
 {
     numOfPresets = 100;
     std::cout << "\n[CTOR VirtualStudioTechnology] " << vstName << std::endl;
@@ -137,9 +137,9 @@ DAWProject::VirtualStudioTechnology::~VirtualStudioTechnology()
 }
 
 DAWProject::DAWProject(std::string dawProjectName) :
-    numOfSections(8),
-    isQuantized(true),
-    projectName(dawProjectName)
+numOfSections(8),
+isQuantized(true),
+projectName(dawProjectName)
 {
     std::cout << "\n[CTOR DAWProject] " << projectName << std::endl;
 }
@@ -225,7 +225,8 @@ struct BackstageArea //2
     BackstageArea(double size);
     ~BackstageArea();
 
-    int numOfEmptyLockers, numOfDressingRooms, numOfEquimentStorageShelves, numOfAllLockers;
+    int numOfEmptyLockers,
+    numOfDressingRooms, numOfEquimentStorageShelves, numOfAllLockers;
     double backStageSize;
     bool hasEquipmentLoadingAccess = true;
 
@@ -238,11 +239,11 @@ struct BackstageArea //2
 };
 
 BackstageArea::BackstageArea(double size) :
-    numOfEmptyLockers(5),
-    numOfDressingRooms(3),
-    numOfEquimentStorageShelves(10),
-    numOfAllLockers(8),
-    backStageSize(size)
+numOfEmptyLockers(5),
+numOfDressingRooms(3),
+numOfEquimentStorageShelves(10),
+numOfAllLockers(8),
+backStageSize(size)
 {
     std::cout << "\n[CTOR BackstageArea] A " << backStageSize << "-square-meters backstage area is being constructed!" << std::endl;
 }
@@ -338,8 +339,8 @@ struct LightingRig //9, Nested UDT
 };
 
 LightingRig::LightingConsole::LightingConsole(std::string name) :
-    hasInternetConnectivity(true),
-    consoleName(name)
+hasInternetConnectivity(true),
+consoleName(name)
 {
     std::cout << "\n[CTOR LightingConsole] A " << consoleName << " console is being constructed!" << std::endl;
 }
@@ -350,7 +351,7 @@ LightingRig::LightingConsole::~LightingConsole()
 }
 
 LightingRig::LightingRig(std::string type) :
-    lightingConsoleType(type)
+lightingConsoleType(type)
 {
     std::cout << "\n[CTOR LightingRig] A " << lightingConsoleType << " lighitng rig is being constructed!" << std::endl;
 }
@@ -449,7 +450,7 @@ struct AlbumRemake
 };
 
 AlbumRemake::AlbumRemake(std::string name, std::string vst1, std::string vst2, std::string vst3) :
-    albumName(name)
+albumName(name)
 {
     std::cout << "\n[CTOR AlbumRemake] '" << albumName << "' remake project is being constructed!" << std::endl;
 
