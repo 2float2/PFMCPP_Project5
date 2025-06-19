@@ -107,6 +107,7 @@ struct DAWProject //1, Nested UDT
         void outputAudio(double outputVolume = 80.0);
         std::string changePreset(std::string presetName);
         void testMIDIInputChannels(int numOfMIDIInputChannels = 2);
+        std::string getVstManufacturer();
         void printDetailedMemberInfo();
     };
 
@@ -114,6 +115,7 @@ struct DAWProject //1, Nested UDT
     void playBackComposition();
     void applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse); 
     void quantizeNotes();
+    std::string getTrackType();
     void printDetailedMemberInfo();
 
     VirtualStudioTechnology vst{"Kontakt"};
@@ -170,9 +172,14 @@ void DAWProject::quantizeNotes()
     std::cout << "\nAre the MIDI notes quantized? " << (isQuantized? "Yes":"No") << std::endl;
 }
 
+std::string DAWProject::getTrackType()
+{
+     return "midi track";
+}
+
 void DAWProject::printDetailedMemberInfo()
 {
-    
+    std::cout << "\n[DAWProject] track type: " << this->getTrackType() << " \ntime signature: " << this->timeSignature << std::endl;
 }
 
 void DAWProject::VirtualStudioTechnology::acceptMIDIInput()
@@ -200,9 +207,14 @@ void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(int numOfMIDIInp
     std::cout << "\n[Loop] MIDI input channels test complete!" << std::endl;
 }
 
+std::string DAWProject::VirtualStudioTechnology::getVstManufacturer()
+{
+     return "Spitfire Audio";
+}
+
 void DAWProject::VirtualStudioTechnology::printDetailedMemberInfo()
 {
-    
+    std::cout << "\n[VirtualStudioTechnology] manufacturer: " << this->getVstManufacturer() << " \nvst name: " << this->vstName << std::endl;
 }
 
 /*
@@ -221,6 +233,7 @@ struct BackstageArea //2
     void storeCablesAndInstruments();
     void provideStorageForPersonalBelongings();
     int storePersonalBelongings();
+    int getCapacity();
     void printDetailedMemberInfo();
 };
 
@@ -268,9 +281,14 @@ int BackstageArea::storePersonalBelongings()
     return numOfEmptyLockers;
 }
 
+int BackstageArea::getCapacity()
+{
+    return 500;
+}
+
 void BackstageArea::printDetailedMemberInfo()
 {
-    
+    std::cout << "\n[BackstageArea] can accomadate: " << this->getCapacity() << " people" << "\nbackstage size: " << this->backStageSize << std::endl;
 }
 
 /*
@@ -303,6 +321,7 @@ struct LightingRig //9, Nested UDT
         void adjustLightIntensity(int lightNumber, double intensity = 100.0);
         void changeGoboPattern(int lightNumber, std::string patternName = "star");
         void testFaders();
+        int getNumOfUsbPort();
         void printDetailedMemberInfo();
 
     };
@@ -311,6 +330,7 @@ struct LightingRig //9, Nested UDT
     void changeLightingColorsAndPatterns(LightingConsole consoleInUse);
     void synchronizeLightingWithMusic(LightingConsole consoleInUse);
     void testDMXChannels();
+    int getNumOfScreens();
     void printDetailedMemberInfo();
 
     LightingConsole mainConsole {"Tiger Touch"};
@@ -365,9 +385,14 @@ void LightingRig::testDMXChannels()
     std::cout << "\n[Loop] DMX channel test complete!" << std::endl;
 }
 
+int LightingRig::getNumOfScreens()
+{
+    return 3;
+}
+
 void LightingRig::printDetailedMemberInfo()
 {
-    
+    std::cout << "\nThe [LightingRig] has " << this->getNumOfScreens() << " screens" << "\nlighting rig height: " << this->heightOfRig << std::endl;
 }
 
 void LightingRig::LightingConsole::panAndTiltLights(int lightNumber, double panAngle, double tiltAngle)
@@ -395,9 +420,14 @@ void LightingRig::LightingConsole::testFaders()
     std::cout << "\n[Loop] Faders channel test complete!" << std::endl;
 }
 
+int LightingRig::LightingConsole::getNumOfUsbPort()
+{
+    return 4;
+}
+
 void LightingRig::LightingConsole::printDetailedMemberInfo()
 {
-    
+    std::cout << "\nThe [LightingConsole] has " << this->getNumOfUsbPort() << " usb ports" << "\nlighting console weight: " << this->weightOfConsole << std::endl;
 }
 
 /*
@@ -596,22 +626,26 @@ int main()
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << "----------------------------------------------------------\n";
-    std::cout << "------------------------ Project 5.2 'this' keyword ---------------------------\n";
+    std::cout << "--------------- Project 5.2 'this' keyword ---------------\n";
     std::cout << "----------------------------------------------------------\n";
     //DAWProject
-    std::cout << 
+    std::cout << "\ndaw track type: " << dawp.getTrackType() << " \ntime signature: " << dawp.timeSignature << std::endl;
     dawp.printDetailedMemberInfo();
 
     //VirtualStudioTechnology
+    std::cout << "\nvst manufacturer: " << vst.getVstManufacturer() << " \nvst name: " << vst.vstName << std::endl;
     vst.printDetailedMemberInfo();
 
     //BackstageArea
+    std::cout << "\nbackstage can accomadate: " << bsa.getCapacity() << " people" << "\nbackstage size: " << bsa.backStageSize << std::endl;
     bsa.printDetailedMemberInfo();
 
     //LightingRig
+    std::cout << "\nThe lighting rig has " << ltr.getNumOfScreens() << " screens" << "\nlighting rig height: " << ltr.heightOfRig << std::endl;
     ltr.printDetailedMemberInfo();
 
     //LightingConsole
+    std::cout << "\nThe lighting console has " << lc.getNumOfUsbPort() << " usb ports" << "\nlighting console weight: " << lc.weightOfConsole << std::endl;
     lc.printDetailedMemberInfo();
 
     
