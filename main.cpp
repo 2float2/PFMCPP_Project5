@@ -80,6 +80,7 @@ void Axe::aConstMemberFunction() const { }
 
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
 /*
  copied UDT 1:
  */
@@ -123,6 +124,8 @@ struct DAWProject //1, Nested UDT
     void printDetailedMemberInfo();
 
     VirtualStudioTechnology vst{"Kontakt"};
+
+    JUCE_LEAK_DETECTOR(DAWProject);
 
 };
 
@@ -240,6 +243,8 @@ struct BackstageArea //2
     int storePersonalBelongings();
     int getCapacity();
     void printDetailedMemberInfo();
+
+    JUCE_LEAK_DETECTOR(BackstageArea);
 };
 
 BackstageArea::BackstageArea(double size) :
@@ -339,6 +344,8 @@ struct LightingRig //9, Nested UDT
     void printDetailedMemberInfo();
 
     LightingConsole mainConsole{ "Tiger Touch" };
+
+    JUCE_LEAK_DETECTOR(LightingRig);
 
 };
 
@@ -451,6 +458,8 @@ struct AlbumRemake
 
     void displayOneDAWProject(DAWProject p);
     void displayAllProjectName();
+
+    JUCE_LEAK_DETECTOR(AlbumRemake);
 };
 
 AlbumRemake::AlbumRemake(std::string name, std::string vst1, std::string vst2, std::string vst3) :
@@ -500,6 +509,8 @@ struct ConcertHall
 
     void displayAllBackstageAreaSize();
     void displayAllLightingRigType();
+
+    JUCE_LEAK_DETECTOR(ConcertHall);
 };
 
 ConcertHall::ConcertHall(std::string name)
