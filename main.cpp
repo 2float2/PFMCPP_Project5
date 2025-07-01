@@ -244,12 +244,12 @@ struct BackstageArea //2
     double backStageSize;
     bool hasEquipmentLoadingAccess = true;
 
-    void provideRestingSpaceForPerformers();
-    void storeCablesAndInstruments();
-    void provideStorageForPersonalBelongings();
-    int storePersonalBelongings();
-    int getCapacity();
-    void printDetailedMemberInfo();
+    void provideRestingSpaceForPerformers() const;
+    void storeCablesAndInstruments() const;
+    void provideStorageForPersonalBelongings() const;
+    int storePersonalBelongings();//modifies a member variable
+    int getCapacity() const;
+    void printDetailedMemberInfo() const;
 
     JUCE_LEAK_DETECTOR(BackstageArea)
 };
@@ -276,22 +276,22 @@ BackstageArea::~BackstageArea()
     std::cout << "\n[DTOR BackstageArea] A " << backStageSize << "-square-meters backstage area is being destructed!" << std::endl;
 }
 
-void BackstageArea::provideRestingSpaceForPerformers()
+void BackstageArea::provideRestingSpaceForPerformers() const
 {
     std::cout << "\nProvide " << backStageSize << " squre metres of resting space for performers" << std::endl;
 }
 
-void BackstageArea::storeCablesAndInstruments()
+void BackstageArea::storeCablesAndInstruments() const
 {
     std::cout << "\nStore cables and instruments with " << numOfEquimentStorageShelves << " storeage shelves" << std::endl;
 }
 
-void BackstageArea::provideStorageForPersonalBelongings()
+void BackstageArea::provideStorageForPersonalBelongings() const
 {
     std::cout << "\nProvide storage for personal belongings with " << numOfAllLockers << " lockers" << std::endl;
 }
 
-int BackstageArea::storePersonalBelongings()
+int BackstageArea::storePersonalBelongings()//modifies a member variable
 {
     if (numOfEmptyLockers != 0)
     {
@@ -305,12 +305,12 @@ int BackstageArea::storePersonalBelongings()
     return numOfEmptyLockers;
 }
 
-int BackstageArea::getCapacity()
+int BackstageArea::getCapacity() const
 {
     return 500;
 }
 
-void BackstageArea::printDetailedMemberInfo()
+void BackstageArea::printDetailedMemberInfo() const
 {
     std::cout << "\n[BackstageArea] can accomadate: " << this->getCapacity() << " people" << "\nbackstage size: " << this->backStageSize << std::endl;
 }
@@ -341,21 +341,21 @@ struct LightingRig //9, Nested UDT
         double weightOfConsole = 120.0;
         std::string consoleName;
 
-        void panAndTiltLights(int lightNumber, double panAngle = 135.0, double tiltAngle = 45.0);
-        void adjustLightIntensity(int lightNumber, double intensity = 100.0);
-        void changeGoboPattern(int lightNumber, std::string patternName = "star");
-        void testFaders();
-        int getNumOfUsbPort();
-        void printDetailedMemberInfo();
+        void panAndTiltLights(int lightNumber, double panAngle = 135.0, double tiltAngle = 45.0) const;
+        void adjustLightIntensity(int lightNumber, double intensity = 100.0) const;
+        void changeGoboPattern(int lightNumber, std::string patternName = "star") const;
+        void testFaders() const;
+        int getNumOfUsbPort() const;
+        void printDetailedMemberInfo() const;
 
     };
 
-    void illuminateTheStage();
-    void changeLightingColorsAndPatterns(LightingConsole consoleInUse);
-    void synchronizeLightingWithMusic(LightingConsole consoleInUse);
-    void testDMXChannels();
-    int getNumOfScreens();
-    void printDetailedMemberInfo();
+    void illuminateTheStage() const;
+    void changeLightingColorsAndPatterns(LightingConsole consoleInUse) const;
+    void synchronizeLightingWithMusic(LightingConsole consoleInUse) const;
+    void testDMXChannels() const;
+    int getNumOfScreens() const;
+    void printDetailedMemberInfo() const;
 
     LightingConsole mainConsole{ "Tiger Touch" };
 
@@ -393,22 +393,22 @@ LightingRig::~LightingRig()
     std::cout << "\n[DTOR LightingRig] A " << lightingConsoleType << " lighitng rig is being destructed!" << std::endl;
 }
 
-void LightingRig::illuminateTheStage()
+void LightingRig::illuminateTheStage() const
 {
     std::cout << "\nIlluminate the stage from " << heightOfRig << " metres high" << std::endl;
 }
 
-void LightingRig::changeLightingColorsAndPatterns(LightingConsole consoleInUse)
+void LightingRig::changeLightingColorsAndPatterns(LightingConsole consoleInUse) const
 {
     std::cout << "\nChange lighting colors and patterns with " << consoleInUse.consoleName << std::endl;
 }
 
-void LightingRig::synchronizeLightingWithMusic(LightingConsole consoleInUse)
+void LightingRig::synchronizeLightingWithMusic(LightingConsole consoleInUse) const
 {
     std::cout << "\nSynchronize lighting with music using " << consoleInUse.consoleName << std::endl;
 }
 
-void LightingRig::testDMXChannels()
+void LightingRig::testDMXChannels() const
 {
     std::cout << "Testing DMX channels..." << std::endl;
     for (int i = 0; i < numOfDMXChannels; ++i)
@@ -418,32 +418,32 @@ void LightingRig::testDMXChannels()
     std::cout << "\n[Loop] DMX channel test complete!" << std::endl;
 }
 
-int LightingRig::getNumOfScreens()
+int LightingRig::getNumOfScreens() const
 {
     return 3;
 }
 
-void LightingRig::printDetailedMemberInfo()
+void LightingRig::printDetailedMemberInfo() const
 {
     std::cout << "\nThe [LightingRig] has " << this->getNumOfScreens() << " screens" << "\nlighting rig height: " << this->heightOfRig << std::endl;
 }
 
-void LightingRig::LightingConsole::panAndTiltLights(int lightNumber, double panAngle, double tiltAngle)
+void LightingRig::LightingConsole::panAndTiltLights(int lightNumber, double panAngle, double tiltAngle) const
 {
     std::cout << "\nPan and tilt light " << lightNumber << " to " << panAngle << " and " << tiltAngle << std::endl;
 }
 
-void LightingRig::LightingConsole::adjustLightIntensity(int lightNumber, double intensity)
+void LightingRig::LightingConsole::adjustLightIntensity(int lightNumber, double intensity) const
 {
     std::cout << "\nAdjust the intensity of light " << lightNumber << " to " << intensity << std::endl;
 }
 
-void LightingRig::LightingConsole::changeGoboPattern(int lightNumber, std::string patternName)
+void LightingRig::LightingConsole::changeGoboPattern(int lightNumber, std::string patternName) const
 {
     std::cout << "\nChange the gobo pattern of light " << lightNumber << " to " << consoleName << "'s default pattern: " << patternName << std::endl;
 }
 
-void LightingRig::LightingConsole::testFaders()
+void LightingRig::LightingConsole::testFaders() const
 {
     std::cout << "Testing faders..." << std::endl;
     for (int i = 0; i < numOfFaders; ++i)
@@ -453,12 +453,12 @@ void LightingRig::LightingConsole::testFaders()
     std::cout << "\n[Loop] Faders channel test complete!" << std::endl;
 }
 
-int LightingRig::LightingConsole::getNumOfUsbPort()
+int LightingRig::LightingConsole::getNumOfUsbPort() const
 {
     return 4;
 }
 
-void LightingRig::LightingConsole::printDetailedMemberInfo()
+void LightingRig::LightingConsole::printDetailedMemberInfo() const
 {
     std::cout << "\nThe [LightingConsole] has " << this->getNumOfUsbPort() << " usb ports" << "\nlighting console weight: " << this->weightOfConsole << std::endl;
 }
@@ -477,8 +477,8 @@ struct AlbumRemake
     DAWProject maruja{ "Drift Like Cloud, Flow Like Water" };
     DAWProject bcnr{ "For the Cold Country" };
 
-    void displayOneDAWProject(const DAWProject& p);
-    void displayAllProjectName();
+    void displayOneDAWProject(const DAWProject& p) const;
+    void displayAllProjectName() const;
 
     JUCE_LEAK_DETECTOR(AlbumRemake)
 };
@@ -507,12 +507,12 @@ AlbumRemake::~AlbumRemake()
     std::cout << "\n[DTOR AlbumRemake] The " << albumName << " remake project is being destructed!" << std::endl;
 }
 
-void AlbumRemake::displayOneDAWProject(const DAWProject& p)
+void AlbumRemake::displayOneDAWProject(const DAWProject& p) const
 {
     std::cout << "\nYou are viewing the project: " << p.projectName << std::endl;
 }
 
-void AlbumRemake::displayAllProjectName()
+void AlbumRemake::displayAllProjectName() const
 {
     std::cout << "\nWhat are we working on?\n";
     std::cout << "\nFirst project: " << betcover.projectName << std::endl;
@@ -535,8 +535,8 @@ struct ConcertHall
     LightingRig mainRig{ "MA Lighting" };
     LightingRig subRig{ "Avolites" };
 
-    void displayAllBackstageAreaSize();
-    void displayAllLightingRigType();
+    void displayAllBackstageAreaSize() const;
+    void displayAllLightingRigType() const;
 
     JUCE_LEAK_DETECTOR(ConcertHall)
 };
@@ -558,13 +558,13 @@ ConcertHall::~ConcertHall()
     std::cout << "\n[DTOR ConcertHall] The concert hall is being destructed!" << std::endl;
 }
 
-void ConcertHall::displayAllBackstageAreaSize()
+void ConcertHall::displayAllBackstageAreaSize() const
 {
     std::cout << "\nThe left backstage area is " << leftBackstageArea.backStageSize << " square meters" << std::endl;
     std::cout << "\nThe right backstage area is " << rightBackstageArea.backStageSize << " square meters" << std::endl;
 }
 
-void ConcertHall::displayAllLightingRigType()
+void ConcertHall::displayAllLightingRigType() const
 {
     std::cout << "\nThe main lighting rig is " << mainRig.lightingConsoleType << std::endl;
     std::cout << "\nThe sub lighting rig is " << subRig.lightingConsoleType << std::endl;
