@@ -593,9 +593,9 @@ int main()
     DAWProject::VirtualStudioTechnology vst{ "Superior Drummer" };
     std::cout << "----------------\n";
 
-    BackstageArea bsa(500.0);
-    BackstageArea bsa1(150.0);
-    bsa1.numOfEmptyLockers = 0;
+    BackstageAreaWrapper bsa( new BackstageArea(500.0));
+    BackstageAreaWrapper bsa1( new BackstageArea(150.0));
+    bsa1.bsaPtr->numOfEmptyLockers = 0;
     std::cout << "----------------\n";
 
     LightingRig ltr{ "Avolites" };
@@ -631,14 +631,14 @@ int main()
 
 
 
-    bsa.provideRestingSpaceForPerformers();
-    bsa.storeCablesAndInstruments();
-    bsa.provideStorageForPersonalBelongings();
-    std::cout << "\n[Member Initialization] There are " << bsa.numOfAllLockers << " lockers in the backstage area" << std::endl;
+    bsa.bsaPtr->provideRestingSpaceForPerformers();
+    bsa.bsaPtr->storeCablesAndInstruments();
+    bsa.bsaPtr->provideStorageForPersonalBelongings();
+    std::cout << "\n[Member Initialization] There are " << bsa.bsaPtr->numOfAllLockers << " lockers in the backstage area" << std::endl;
     std::cout << "\n // Case 1: Demand < available lockers \n";
-    bsa.storePersonalBelongings();
+    bsa.bsaPtr->storePersonalBelongings();
     std::cout << "\n // Case 2: No lockers available (numOfEmptyLockers = 0) \n";
-    bsa1.storePersonalBelongings();
+    bsa1.bsaPtr->storePersonalBelongings();
     std::cout << "----------------\n";
 
 
@@ -688,8 +688,8 @@ int main()
     vst.printDetailedMemberInfo();
 
     //BackstageArea
-    std::cout << "\nbackstage can accomadate: " << bsa.getCapacity() << " people" << "\nbackstage size: " << bsa.backStageSize << std::endl;
-    bsa.printDetailedMemberInfo();
+    std::cout << "\nbackstage can accomadate: " << bsa.bsaPtr->getCapacity() << " people" << "\nbackstage size: " << bsa.bsaPtr->backStageSize << std::endl;
+    bsa.bsaPtr->printDetailedMemberInfo();
 
     //LightingRig
     std::cout << "\nThe lighting rig has " << ltr.getNumOfScreens() << " screens" << "\nlighting rig height: " << ltr.heightOfRig << std::endl;
