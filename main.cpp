@@ -108,20 +108,20 @@ struct DAWProject //1, Nested UDT
         bool supportsMIDI = true;
         int numOfPresets;
 
-        void acceptMIDIInput();
-        void outputAudio(double outputVolume = 80.0);
-        std::string changePreset(std::string presetName);
-        void testMIDIInputChannels(int numOfMIDIInputChannels = 2);
-        std::string getVstManufacturer();
-        void printDetailedMemberInfo();
+        void acceptMIDIInput() const;
+        void outputAudio(double outputVolume = 80.0) const;
+        std::string changePreset(std::string presetName) const;
+        void testMIDIInputChannels(int numOfMIDIInputChannels = 2) const;
+        std::string getVstManufacturer() const;
+        void printDetailedMemberInfo() const;
     };
 
-    void playBack();
-    void playBackComposition();
-    void applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse);
-    void quantizeNotes();
-    std::string getTrackType();
-    void printDetailedMemberInfo();
+    void playBack() const;
+    void playBackComposition() const;
+    void applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse) const;
+    void quantizeNotes() const;
+    std::string getTrackType() const;
+    void printDetailedMemberInfo() const;
 
     VirtualStudioTechnology vst{"Kontakt"};
 
@@ -163,12 +163,12 @@ DAWProject::~DAWProject()
     std::cout << "\n[DTOR DAWProject] " << projectName << std::endl;
 }
 
-void DAWProject::playBack()
+void DAWProject::playBack() const
 {
     std::cout << "\nNow playing..." << std::endl;
 }
 
-void DAWProject::playBackComposition()
+void DAWProject::playBackComposition() const
 {
     for (int i = 0; i < numOfSections; ++i)
     {
@@ -176,42 +176,42 @@ void DAWProject::playBackComposition()
     }
 }
 
-void DAWProject::applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse)
+void DAWProject::applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse) const
 {
     std::cout << "\nApply " << effectName << " of " << vstInUse.vstName << std::endl;
 }
 
-void DAWProject::quantizeNotes()
+void DAWProject::quantizeNotes() const
 {
     std::cout << "\nAre the MIDI notes quantized? " << (isQuantized ? "Yes" : "No") << std::endl;
 }
 
-std::string DAWProject::getTrackType()
+std::string DAWProject::getTrackType() const
 {
     return "midi track";
 }
 
-void DAWProject::printDetailedMemberInfo()
+void DAWProject::printDetailedMemberInfo() const
 {
     std::cout << "\n[DAWProject] track type: " << this->getTrackType() << " \ntime signature: " << this->timeSignature << std::endl;
 }
 
-void DAWProject::VirtualStudioTechnology::acceptMIDIInput()
+void DAWProject::VirtualStudioTechnology::acceptMIDIInput() const
 {
     std::cout << "\nCurrent VST accepts MIDI input? " << (supportsMIDI ? "Yes" : "No") << std::endl;
 }
 
-void DAWProject::VirtualStudioTechnology::outputAudio(double outputVolume)
+void DAWProject::VirtualStudioTechnology::outputAudio(double outputVolume) const
 {
     std::cout << "\nOutput audio at " << outputVolume << "db" << std::endl;
 }
 
-std::string DAWProject::VirtualStudioTechnology::changePreset(std::string presetName)
+std::string DAWProject::VirtualStudioTechnology::changePreset(std::string presetName) const
 {
     return presetName;
 }
 
-void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(int numOfMIDIInputChannels)
+void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(int numOfMIDIInputChannels) const
 {
     std::cout << "Testing MIDI input channels..." << std::endl;
     for (int i = 1; i < numOfMIDIInputChannels; ++i)
@@ -221,12 +221,12 @@ void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(int numOfMIDIInp
     std::cout << "\n[Loop] MIDI input channels test complete!" << std::endl;
 }
 
-std::string DAWProject::VirtualStudioTechnology::getVstManufacturer()
+std::string DAWProject::VirtualStudioTechnology::getVstManufacturer() const
 {
     return "Spitfire Audio";
 }
 
-void DAWProject::VirtualStudioTechnology::printDetailedMemberInfo()
+void DAWProject::VirtualStudioTechnology::printDetailedMemberInfo() const
 {
     std::cout << "\n[VirtualStudioTechnology] manufacturer: " << this->getVstManufacturer() << " \nvst name: " << this->vstName << std::endl;
 }
