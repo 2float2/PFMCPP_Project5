@@ -125,7 +125,7 @@ struct DAWProject //1, Nested UDT
 
     VirtualStudioTechnology vst{"Kontakt"};
 
-    JUCE_LEAK_DETECTOR(DAWProject);
+    JUCE_LEAK_DETECTOR(DAWProject)
 
 };
 
@@ -134,7 +134,7 @@ struct DAWProjectWrapper
     DAWProjectWrapper(DAWProject* ptr) : dawpPtr(ptr) { }
     ~DAWProjectWrapper() { delete dawpPtr; }
     DAWProject* dawpPtr = nullptr;
-}
+};
 
 DAWProject::VirtualStudioTechnology::VirtualStudioTechnology(std::string vstn) :
 vstName(vstn),
@@ -251,15 +251,15 @@ struct BackstageArea //2
     int getCapacity();
     void printDetailedMemberInfo();
 
-    JUCE_LEAK_DETECTOR(BackstageArea);
+    JUCE_LEAK_DETECTOR(BackstageArea)
 };
 
 struct BackstageAreaWrapper
 {
-    BackstageAreaWrapper(Backstage* ptr) : bsaPtr(ptr){ }
+    BackstageAreaWrapper(BackstageArea* ptr) : bsaPtr(ptr){ }
     ~BackstageAreaWrapper() { delete bsaPtr;}
-    Backstage* bsaPtr = nullptr;
-}
+    BackstageArea* bsaPtr = nullptr;
+};
 
 BackstageArea::BackstageArea(double size) :
 numOfEmptyLockers(5),
@@ -359,7 +359,7 @@ struct LightingRig //9, Nested UDT
 
     LightingConsole mainConsole{ "Tiger Touch" };
 
-    JUCE_LEAK_DETECTOR(LightingRig);
+    JUCE_LEAK_DETECTOR(LightingRig)
 
 };
 
@@ -368,7 +368,7 @@ struct LightingRigWrapper
     LightingRigWrapper(LightingRig* ptr) : ltrPtr(ptr) { }
     ~LightingRigWrapper() { delete ltrPtr; }
     LightingRig* ltrPtr = nullptr;
-}
+};
 
 LightingRig::LightingConsole::LightingConsole(std::string name) :
 hasInternetConnectivity(true),
@@ -480,7 +480,7 @@ struct AlbumRemake
     void displayOneDAWProject(DAWProject p);
     void displayAllProjectName();
 
-    JUCE_LEAK_DETECTOR(AlbumRemake);
+    JUCE_LEAK_DETECTOR(AlbumRemake)
 };
 
 struct AlbumRemakeWrapper
@@ -488,7 +488,7 @@ struct AlbumRemakeWrapper
     AlbumRemakeWrapper(AlbumRemake* ptr) : arPtr(ptr) { }
     ~AlbumRemakeWrapper() { delete arPtr; }
     AlbumRemake* arPtr = nullptr;
-}
+};
 
 AlbumRemake::AlbumRemake(std::string name, std::string vst1, std::string vst2, std::string vst3) :
 albumName(name)
@@ -538,7 +538,7 @@ struct ConcertHall
     void displayAllBackstageAreaSize();
     void displayAllLightingRigType();
 
-    JUCE_LEAK_DETECTOR(ConcertHall);
+    JUCE_LEAK_DETECTOR(ConcertHall)
 };
 
 struct ConcertHallWrapper
@@ -546,7 +546,7 @@ struct ConcertHallWrapper
     ConcertHallWrapper(ConcertHall* ptr) : chPtr(ptr) { }
     ~ConcertHallWrapper() { delete chPtr; }
     ConcertHall* chPtr = nullptr;
-}
+};
 
 ConcertHall::ConcertHall(std::string name)
 {
@@ -587,7 +587,7 @@ void ConcertHall::displayAllLightingRigType()
 #include <iostream>
 int main()
 {
-    DAWProject dawp{ "betcover!! Go Go Steam" };
+    DAWProjectWrapper dawp( new DAWProject( "betcover!! Go Go Steam" ) );
     std::cout << "----------------\n";
 
     DAWProject::VirtualStudioTechnology vst{ "Superior Drummer" };
@@ -613,11 +613,11 @@ int main()
 
 
 
-    dawp.playBackComposition();
-    dawp.applyAudioEffects("reverb", dawp.vst);
-    dawp.quantizeNotes();
-    std::cout << "\n[Member Initialization] A " << dawp.vst.vstName << " is being used" << std::endl;
-    std::cout << "\n[Member Initialization] Is the project quantized? " << (dawp.isQuantized ? "Yes" : "No") << std::endl;
+    dawp.dawpPtr->playBackComposition();
+    dawp.dawpPtr->applyAudioEffects("reverb", dawp.dawpPtr->vst);
+    dawp.dawpPtr->quantizeNotes();
+    std::cout << "\n[Member Initialization] A " << dawp.dawpPtr->vst.vstName << " is being used" << std::endl;
+    std::cout << "\n[Member Initialization] Is the project quantized? " << (dawp.dawpPtr->isQuantized ? "Yes" : "No") << std::endl;
     std::cout << "----------------\n";
 
 
@@ -680,8 +680,8 @@ int main()
     std::cout << "--------------- Project 5.2 'this' keyword ---------------\n";
     std::cout << "----------------------------------------------------------\n";
     //DAWProject
-    std::cout << "\ndaw track type: " << dawp.getTrackType() << " \ntime signature: " << dawp.timeSignature << std::endl;
-    dawp.printDetailedMemberInfo();
+    std::cout << "\ndaw track type: " << dawp.dawpPtr->getTrackType() << " \ntime signature: " << dawp.dawpPtr->timeSignature << std::endl;
+    dawp.dawpPtr->printDetailedMemberInfo();
 
     //VirtualStudioTechnology
     std::cout << "\nvst manufacturer: " << vst.getVstManufacturer() << " \nvst name: " << vst.vstName << std::endl;
