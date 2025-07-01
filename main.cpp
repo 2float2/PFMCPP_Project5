@@ -129,6 +129,13 @@ struct DAWProject //1, Nested UDT
 
 };
 
+struct DAWProjectWrapper
+{
+    DAWProjectWrapper(DAWProject* ptr) : dawpPtr(ptr) { }
+    ~DAWProjectWrapper() { delete dawpPtr; }
+    DAWProject* dawpPtr = nullptr;
+}
+
 DAWProject::VirtualStudioTechnology::VirtualStudioTechnology(std::string vstn) :
 vstName(vstn),
 vstManufacturer("Toontrack"),
@@ -247,6 +254,13 @@ struct BackstageArea //2
     JUCE_LEAK_DETECTOR(BackstageArea);
 };
 
+struct BackstageAreaWrapper
+{
+    BackstageAreaWrapper(Backstage* ptr) : bsaPtr(ptr){ }
+    ~BackstageAreaWrapper() { delete bsaPtr;}
+    Backstage* bsaPtr = nullptr;
+}
+
 BackstageArea::BackstageArea(double size) :
 numOfEmptyLockers(5),
 numOfDressingRooms(3),
@@ -348,6 +362,13 @@ struct LightingRig //9, Nested UDT
     JUCE_LEAK_DETECTOR(LightingRig);
 
 };
+
+struct LightingRigWrapper
+{
+    LightingRigWrapper(LightingRig* ptr) : ltrPtr(ptr) { }
+    ~LightingRigWrapper() { delete ltrPtr; }
+    LightingRig* ltrPtr = nullptr;
+}
 
 LightingRig::LightingConsole::LightingConsole(std::string name) :
 hasInternetConnectivity(true),
@@ -462,6 +483,13 @@ struct AlbumRemake
     JUCE_LEAK_DETECTOR(AlbumRemake);
 };
 
+struct AlbumRemakeWrapper
+{
+    AlbumRemakeWrapper(AlbumRemake* ptr) : arPtr(ptr) { }
+    ~AlbumRemakeWrapper() { delete arPtr; }
+    AlbumRemake* arPtr = nullptr;
+}
+
 AlbumRemake::AlbumRemake(std::string name, std::string vst1, std::string vst2, std::string vst3) :
 albumName(name)
 {
@@ -512,6 +540,13 @@ struct ConcertHall
 
     JUCE_LEAK_DETECTOR(ConcertHall);
 };
+
+struct ConcertHallWrapper
+{
+    ConcertHallWrapper(ConcertHall* ptr) : chPtr(ptr) { }
+    ~ConcertHallWrapper() { delete chPtr; }
+    ConcertHall* chPtr = nullptr;
+}
 
 ConcertHall::ConcertHall(std::string name)
 {
