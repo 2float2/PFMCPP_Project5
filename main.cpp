@@ -477,7 +477,7 @@ struct AlbumRemake
     DAWProject maruja{ "Drift Like Cloud, Flow Like Water" };
     DAWProject bcnr{ "For the Cold Country" };
 
-    void displayOneDAWProject(DAWProject p);
+    void displayOneDAWProject(const DAWProject& p);
     void displayAllProjectName();
 
     JUCE_LEAK_DETECTOR(AlbumRemake)
@@ -507,7 +507,7 @@ AlbumRemake::~AlbumRemake()
     std::cout << "\n[DTOR AlbumRemake] The " << albumName << " remake project is being destructed!" << std::endl;
 }
 
-void AlbumRemake::displayOneDAWProject(DAWProject p)
+void AlbumRemake::displayOneDAWProject(const DAWProject& p)
 {
     std::cout << "\nYou are viewing the project: " << p.projectName << std::endl;
 }
