@@ -598,17 +598,17 @@ int main()
     bsa1.bsaPtr->numOfEmptyLockers = 0;
     std::cout << "----------------\n";
 
-    LightingRig ltr{ "Avolites" };
+    LightingRigWrapper ltr(new LightingRig( "Avolites" ));
     std::cout << "----------------\n";
 
     LightingRig::LightingConsole lc{ "Pearl" };
     std::cout << "----------------\n";
 
-    AlbumRemake ar{ "My favourite songs", "Fuzz War", "Super Octave", "Nord Stage 3 HA88" };
+    AlbumRemakeWrapper ar( new AlbumRemake ( "My favourite songs", "Fuzz War", "Super Octave", "Nord Stage 3 HA88" ) );
     //ar.displayAllProjectName();
     std::cout << "----------------\n";
 
-    ConcertHall ch{ "Tokyo Dome" };
+    ConcertHallWrapper ch( new ConcertHall( "Tokyo Dome" ) );
     std::cout << "----------------\n";
 
 
@@ -643,11 +643,11 @@ int main()
 
 
 
-    ltr.illuminateTheStage();
-    ltr.changeLightingColorsAndPatterns(ltr.mainConsole);
-    ltr.synchronizeLightingWithMusic(ltr.mainConsole);
-    std::cout << "\n[Member Initialization] The lighting console type is " << ltr.lightingConsoleType << std::endl;
-    ltr.testDMXChannels();
+    ltr.ltrPtr->illuminateTheStage();
+    ltr.ltrPtr->changeLightingColorsAndPatterns(ltr.ltrPtr->mainConsole);
+    ltr.ltrPtr->synchronizeLightingWithMusic(ltr.ltrPtr->mainConsole);
+    std::cout << "\n[Member Initialization] The lighting console type is " << ltr.ltrPtr->lightingConsoleType << std::endl;
+    ltr.ltrPtr->testDMXChannels();
     std::cout << "----------------\n";
 
 
@@ -661,14 +661,14 @@ int main()
 
 
 
-    ar.displayOneDAWProject(ar.betcover);
-    ar.displayAllProjectName();
+    ar.arPtr->displayOneDAWProject(ar.arPtr->betcover);
+    ar.arPtr->displayAllProjectName();
     std::cout << "----------------\n";
 
 
 
-    ch.displayAllBackstageAreaSize();
-    ch.displayAllLightingRigType();
+    ch.chPtr->displayAllBackstageAreaSize();
+    ch.chPtr->displayAllLightingRigType();
     std::cout << "----------------\n";
 
 
@@ -692,8 +692,8 @@ int main()
     bsa.bsaPtr->printDetailedMemberInfo();
 
     //LightingRig
-    std::cout << "\nThe lighting rig has " << ltr.getNumOfScreens() << " screens" << "\nlighting rig height: " << ltr.heightOfRig << std::endl;
-    ltr.printDetailedMemberInfo();
+    std::cout << "\nThe lighting rig has " << ltr.ltrPtr->getNumOfScreens() << " screens" << "\nlighting rig height: " << ltr.ltrPtr->heightOfRig << std::endl;
+    ltr.ltrPtr->printDetailedMemberInfo();
 
     //LightingConsole
     std::cout << "\nThe lighting console has " << lc.getNumOfUsbPort() << " usb ports" << "\nlighting console weight: " << lc.weightOfConsole << std::endl;
