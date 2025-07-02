@@ -80,6 +80,7 @@ void Axe::aConstMemberFunction() const { }
 
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
 /*
  copied UDT 1:
  */
@@ -107,23 +108,32 @@ struct DAWProject //1, Nested UDT
         bool supportsMIDI = true;
         int numOfPresets;
 
-        void acceptMIDIInput();
-        void outputAudio(double outputVolume = 80.0);
-        std::string changePreset(std::string presetName);
-        void testMIDIInputChannels(int numOfMIDIInputChannels = 2);
-        std::string getVstManufacturer();
-        void printDetailedMemberInfo();
+        void acceptMIDIInput() const;
+        void outputAudio(double outputVolume = 80.0) const;
+        std::string changePreset(std::string presetName) const;
+        void testMIDIInputChannels(int numOfMIDIInputChannels = 2) const;
+        std::string getVstManufacturer() const;
+        void printDetailedMemberInfo() const;
     };
 
-    void playBack();
-    void playBackComposition();
-    void applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse);
-    void quantizeNotes();
-    std::string getTrackType();
-    void printDetailedMemberInfo();
+    void playBack() const;
+    void playBackComposition() const;
+    void applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse) const;
+    void quantizeNotes() const;
+    std::string getTrackType() const;
+    void printDetailedMemberInfo() const;
 
     VirtualStudioTechnology vst{"Kontakt"};
 
+    JUCE_LEAK_DETECTOR(DAWProject)
+
+};
+
+struct DAWProjectWrapper
+{
+    DAWProjectWrapper(DAWProject* ptr) : dawpPtr(ptr) { }
+    ~DAWProjectWrapper() { delete dawpPtr; }
+    DAWProject* dawpPtr = nullptr;
 };
 
 DAWProject::VirtualStudioTechnology::VirtualStudioTechnology(std::string vstn) :
@@ -153,12 +163,12 @@ DAWProject::~DAWProject()
     std::cout << "\n[DTOR DAWProject] " << projectName << std::endl;
 }
 
-void DAWProject::playBack()
+void DAWProject::playBack() const
 {
     std::cout << "\nNow playing..." << std::endl;
 }
 
-void DAWProject::playBackComposition()
+void DAWProject::playBackComposition() const
 {
     for (int i = 0; i < numOfSections; ++i)
     {
@@ -166,42 +176,42 @@ void DAWProject::playBackComposition()
     }
 }
 
-void DAWProject::applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse)
+void DAWProject::applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse) const
 {
     std::cout << "\nApply " << effectName << " of " << vstInUse.vstName << std::endl;
 }
 
-void DAWProject::quantizeNotes()
+void DAWProject::quantizeNotes() const
 {
     std::cout << "\nAre the MIDI notes quantized? " << (isQuantized ? "Yes" : "No") << std::endl;
 }
 
-std::string DAWProject::getTrackType()
+std::string DAWProject::getTrackType() const
 {
     return "midi track";
 }
 
-void DAWProject::printDetailedMemberInfo()
+void DAWProject::printDetailedMemberInfo() const
 {
     std::cout << "\n[DAWProject] track type: " << this->getTrackType() << " \ntime signature: " << this->timeSignature << std::endl;
 }
 
-void DAWProject::VirtualStudioTechnology::acceptMIDIInput()
+void DAWProject::VirtualStudioTechnology::acceptMIDIInput() const
 {
     std::cout << "\nCurrent VST accepts MIDI input? " << (supportsMIDI ? "Yes" : "No") << std::endl;
 }
 
-void DAWProject::VirtualStudioTechnology::outputAudio(double outputVolume)
+void DAWProject::VirtualStudioTechnology::outputAudio(double outputVolume) const
 {
     std::cout << "\nOutput audio at " << outputVolume << "db" << std::endl;
 }
 
-std::string DAWProject::VirtualStudioTechnology::changePreset(std::string presetName)
+std::string DAWProject::VirtualStudioTechnology::changePreset(std::string presetName) const
 {
     return presetName;
 }
 
-void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(int numOfMIDIInputChannels)
+void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(int numOfMIDIInputChannels) const
 {
     std::cout << "Testing MIDI input channels..." << std::endl;
     for (int i = 1; i < numOfMIDIInputChannels; ++i)
@@ -211,12 +221,12 @@ void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(int numOfMIDIInp
     std::cout << "\n[Loop] MIDI input channels test complete!" << std::endl;
 }
 
-std::string DAWProject::VirtualStudioTechnology::getVstManufacturer()
+std::string DAWProject::VirtualStudioTechnology::getVstManufacturer() const
 {
     return "Spitfire Audio";
 }
 
-void DAWProject::VirtualStudioTechnology::printDetailedMemberInfo()
+void DAWProject::VirtualStudioTechnology::printDetailedMemberInfo() const
 {
     std::cout << "\n[VirtualStudioTechnology] manufacturer: " << this->getVstManufacturer() << " \nvst name: " << this->vstName << std::endl;
 }
@@ -234,12 +244,21 @@ struct BackstageArea //2
     double backStageSize;
     bool hasEquipmentLoadingAccess = true;
 
-    void provideRestingSpaceForPerformers();
-    void storeCablesAndInstruments();
-    void provideStorageForPersonalBelongings();
-    int storePersonalBelongings();
-    int getCapacity();
-    void printDetailedMemberInfo();
+    void provideRestingSpaceForPerformers() const;
+    void storeCablesAndInstruments() const;
+    void provideStorageForPersonalBelongings() const;
+    int storePersonalBelongings();//modifies a member variable
+    int getCapacity() const;
+    void printDetailedMemberInfo() const;
+
+    JUCE_LEAK_DETECTOR(BackstageArea)
+};
+
+struct BackstageAreaWrapper
+{
+    BackstageAreaWrapper(BackstageArea* ptr) : bsaPtr(ptr){ }
+    ~BackstageAreaWrapper() { delete bsaPtr;}
+    BackstageArea* bsaPtr = nullptr;
 };
 
 BackstageArea::BackstageArea(double size) :
@@ -257,22 +276,22 @@ BackstageArea::~BackstageArea()
     std::cout << "\n[DTOR BackstageArea] A " << backStageSize << "-square-meters backstage area is being destructed!" << std::endl;
 }
 
-void BackstageArea::provideRestingSpaceForPerformers()
+void BackstageArea::provideRestingSpaceForPerformers() const
 {
     std::cout << "\nProvide " << backStageSize << " squre metres of resting space for performers" << std::endl;
 }
 
-void BackstageArea::storeCablesAndInstruments()
+void BackstageArea::storeCablesAndInstruments() const
 {
     std::cout << "\nStore cables and instruments with " << numOfEquimentStorageShelves << " storeage shelves" << std::endl;
 }
 
-void BackstageArea::provideStorageForPersonalBelongings()
+void BackstageArea::provideStorageForPersonalBelongings() const
 {
     std::cout << "\nProvide storage for personal belongings with " << numOfAllLockers << " lockers" << std::endl;
 }
 
-int BackstageArea::storePersonalBelongings()
+int BackstageArea::storePersonalBelongings()//modifies a member variable
 {
     if (numOfEmptyLockers != 0)
     {
@@ -286,12 +305,12 @@ int BackstageArea::storePersonalBelongings()
     return numOfEmptyLockers;
 }
 
-int BackstageArea::getCapacity()
+int BackstageArea::getCapacity() const
 {
     return 500;
 }
 
-void BackstageArea::printDetailedMemberInfo()
+void BackstageArea::printDetailedMemberInfo() const
 {
     std::cout << "\n[BackstageArea] can accomadate: " << this->getCapacity() << " people" << "\nbackstage size: " << this->backStageSize << std::endl;
 }
@@ -322,24 +341,33 @@ struct LightingRig //9, Nested UDT
         double weightOfConsole = 120.0;
         std::string consoleName;
 
-        void panAndTiltLights(int lightNumber, double panAngle = 135.0, double tiltAngle = 45.0);
-        void adjustLightIntensity(int lightNumber, double intensity = 100.0);
-        void changeGoboPattern(int lightNumber, std::string patternName = "star");
-        void testFaders();
-        int getNumOfUsbPort();
-        void printDetailedMemberInfo();
+        void panAndTiltLights(int lightNumber, double panAngle = 135.0, double tiltAngle = 45.0) const;
+        void adjustLightIntensity(int lightNumber, double intensity = 100.0) const;
+        void changeGoboPattern(int lightNumber, std::string patternName = "star") const;
+        void testFaders() const;
+        int getNumOfUsbPort() const;
+        void printDetailedMemberInfo() const;
 
     };
 
-    void illuminateTheStage();
-    void changeLightingColorsAndPatterns(LightingConsole consoleInUse);
-    void synchronizeLightingWithMusic(LightingConsole consoleInUse);
-    void testDMXChannels();
-    int getNumOfScreens();
-    void printDetailedMemberInfo();
+    void illuminateTheStage() const;
+    void changeLightingColorsAndPatterns(LightingConsole consoleInUse) const;
+    void synchronizeLightingWithMusic(LightingConsole consoleInUse) const;
+    void testDMXChannels() const;
+    int getNumOfScreens() const;
+    void printDetailedMemberInfo() const;
 
     LightingConsole mainConsole{ "Tiger Touch" };
 
+    JUCE_LEAK_DETECTOR(LightingRig)
+
+};
+
+struct LightingRigWrapper
+{
+    LightingRigWrapper(LightingRig* ptr) : ltrPtr(ptr) { }
+    ~LightingRigWrapper() { delete ltrPtr; }
+    LightingRig* ltrPtr = nullptr;
 };
 
 LightingRig::LightingConsole::LightingConsole(std::string name) :
@@ -365,22 +393,22 @@ LightingRig::~LightingRig()
     std::cout << "\n[DTOR LightingRig] A " << lightingConsoleType << " lighitng rig is being destructed!" << std::endl;
 }
 
-void LightingRig::illuminateTheStage()
+void LightingRig::illuminateTheStage() const
 {
     std::cout << "\nIlluminate the stage from " << heightOfRig << " metres high" << std::endl;
 }
 
-void LightingRig::changeLightingColorsAndPatterns(LightingConsole consoleInUse)
+void LightingRig::changeLightingColorsAndPatterns(LightingConsole consoleInUse) const
 {
     std::cout << "\nChange lighting colors and patterns with " << consoleInUse.consoleName << std::endl;
 }
 
-void LightingRig::synchronizeLightingWithMusic(LightingConsole consoleInUse)
+void LightingRig::synchronizeLightingWithMusic(LightingConsole consoleInUse) const
 {
     std::cout << "\nSynchronize lighting with music using " << consoleInUse.consoleName << std::endl;
 }
 
-void LightingRig::testDMXChannels()
+void LightingRig::testDMXChannels() const
 {
     std::cout << "Testing DMX channels..." << std::endl;
     for (int i = 0; i < numOfDMXChannels; ++i)
@@ -390,32 +418,32 @@ void LightingRig::testDMXChannels()
     std::cout << "\n[Loop] DMX channel test complete!" << std::endl;
 }
 
-int LightingRig::getNumOfScreens()
+int LightingRig::getNumOfScreens() const
 {
     return 3;
 }
 
-void LightingRig::printDetailedMemberInfo()
+void LightingRig::printDetailedMemberInfo() const
 {
     std::cout << "\nThe [LightingRig] has " << this->getNumOfScreens() << " screens" << "\nlighting rig height: " << this->heightOfRig << std::endl;
 }
 
-void LightingRig::LightingConsole::panAndTiltLights(int lightNumber, double panAngle, double tiltAngle)
+void LightingRig::LightingConsole::panAndTiltLights(int lightNumber, double panAngle, double tiltAngle) const
 {
     std::cout << "\nPan and tilt light " << lightNumber << " to " << panAngle << " and " << tiltAngle << std::endl;
 }
 
-void LightingRig::LightingConsole::adjustLightIntensity(int lightNumber, double intensity)
+void LightingRig::LightingConsole::adjustLightIntensity(int lightNumber, double intensity) const
 {
     std::cout << "\nAdjust the intensity of light " << lightNumber << " to " << intensity << std::endl;
 }
 
-void LightingRig::LightingConsole::changeGoboPattern(int lightNumber, std::string patternName)
+void LightingRig::LightingConsole::changeGoboPattern(int lightNumber, std::string patternName) const
 {
     std::cout << "\nChange the gobo pattern of light " << lightNumber << " to " << consoleName << "'s default pattern: " << patternName << std::endl;
 }
 
-void LightingRig::LightingConsole::testFaders()
+void LightingRig::LightingConsole::testFaders() const
 {
     std::cout << "Testing faders..." << std::endl;
     for (int i = 0; i < numOfFaders; ++i)
@@ -425,12 +453,12 @@ void LightingRig::LightingConsole::testFaders()
     std::cout << "\n[Loop] Faders channel test complete!" << std::endl;
 }
 
-int LightingRig::LightingConsole::getNumOfUsbPort()
+int LightingRig::LightingConsole::getNumOfUsbPort() const
 {
     return 4;
 }
 
-void LightingRig::LightingConsole::printDetailedMemberInfo()
+void LightingRig::LightingConsole::printDetailedMemberInfo() const
 {
     std::cout << "\nThe [LightingConsole] has " << this->getNumOfUsbPort() << " usb ports" << "\nlighting console weight: " << this->weightOfConsole << std::endl;
 }
@@ -449,8 +477,17 @@ struct AlbumRemake
     DAWProject maruja{ "Drift Like Cloud, Flow Like Water" };
     DAWProject bcnr{ "For the Cold Country" };
 
-    void displayOneDAWProject(DAWProject p);
-    void displayAllProjectName();
+    void displayOneDAWProject(const DAWProject& p) const;
+    void displayAllProjectName() const;
+
+    JUCE_LEAK_DETECTOR(AlbumRemake)
+};
+
+struct AlbumRemakeWrapper
+{
+    AlbumRemakeWrapper(AlbumRemake* ptr) : arPtr(ptr) { }
+    ~AlbumRemakeWrapper() { delete arPtr; }
+    AlbumRemake* arPtr = nullptr;
 };
 
 AlbumRemake::AlbumRemake(std::string name, std::string vst1, std::string vst2, std::string vst3) :
@@ -470,12 +507,12 @@ AlbumRemake::~AlbumRemake()
     std::cout << "\n[DTOR AlbumRemake] The " << albumName << " remake project is being destructed!" << std::endl;
 }
 
-void AlbumRemake::displayOneDAWProject(DAWProject p)
+void AlbumRemake::displayOneDAWProject(const DAWProject& p) const
 {
     std::cout << "\nYou are viewing the project: " << p.projectName << std::endl;
 }
 
-void AlbumRemake::displayAllProjectName()
+void AlbumRemake::displayAllProjectName() const
 {
     std::cout << "\nWhat are we working on?\n";
     std::cout << "\nFirst project: " << betcover.projectName << std::endl;
@@ -498,8 +535,17 @@ struct ConcertHall
     LightingRig mainRig{ "MA Lighting" };
     LightingRig subRig{ "Avolites" };
 
-    void displayAllBackstageAreaSize();
-    void displayAllLightingRigType();
+    void displayAllBackstageAreaSize() const;
+    void displayAllLightingRigType() const;
+
+    JUCE_LEAK_DETECTOR(ConcertHall)
+};
+
+struct ConcertHallWrapper
+{
+    ConcertHallWrapper(ConcertHall* ptr) : chPtr(ptr) { }
+    ~ConcertHallWrapper() { delete chPtr; }
+    ConcertHall* chPtr = nullptr;
 };
 
 ConcertHall::ConcertHall(std::string name)
@@ -512,13 +558,13 @@ ConcertHall::~ConcertHall()
     std::cout << "\n[DTOR ConcertHall] The concert hall is being destructed!" << std::endl;
 }
 
-void ConcertHall::displayAllBackstageAreaSize()
+void ConcertHall::displayAllBackstageAreaSize() const
 {
     std::cout << "\nThe left backstage area is " << leftBackstageArea.backStageSize << " square meters" << std::endl;
     std::cout << "\nThe right backstage area is " << rightBackstageArea.backStageSize << " square meters" << std::endl;
 }
 
-void ConcertHall::displayAllLightingRigType()
+void ConcertHall::displayAllLightingRigType() const
 {
     std::cout << "\nThe main lighting rig is " << mainRig.lightingConsoleType << std::endl;
     std::cout << "\nThe sub lighting rig is " << subRig.lightingConsoleType << std::endl;
@@ -541,37 +587,37 @@ void ConcertHall::displayAllLightingRigType()
 #include <iostream>
 int main()
 {
-    DAWProject dawp{ "betcover!! Go Go Steam" };
+    DAWProjectWrapper dawp( new DAWProject( "betcover!! Go Go Steam" ) );
     std::cout << "----------------\n";
 
     DAWProject::VirtualStudioTechnology vst{ "Superior Drummer" };
     std::cout << "----------------\n";
 
-    BackstageArea bsa(500.0);
-    BackstageArea bsa1(150.0);
-    bsa1.numOfEmptyLockers = 0;
+    BackstageAreaWrapper bsa( new BackstageArea(500.0));
+    BackstageAreaWrapper bsa1( new BackstageArea(150.0));
+    bsa1.bsaPtr->numOfEmptyLockers = 0;
     std::cout << "----------------\n";
 
-    LightingRig ltr{ "Avolites" };
+    LightingRigWrapper ltr(new LightingRig( "Avolites" ));
     std::cout << "----------------\n";
 
     LightingRig::LightingConsole lc{ "Pearl" };
     std::cout << "----------------\n";
 
-    AlbumRemake ar{ "My favourite songs", "Fuzz War", "Super Octave", "Nord Stage 3 HA88" };
+    AlbumRemakeWrapper ar( new AlbumRemake ( "My favourite songs", "Fuzz War", "Super Octave", "Nord Stage 3 HA88" ) );
     //ar.displayAllProjectName();
     std::cout << "----------------\n";
 
-    ConcertHall ch{ "Tokyo Dome" };
+    ConcertHallWrapper ch( new ConcertHall( "Tokyo Dome" ) );
     std::cout << "----------------\n";
 
 
 
-    dawp.playBackComposition();
-    dawp.applyAudioEffects("reverb", dawp.vst);
-    dawp.quantizeNotes();
-    std::cout << "\n[Member Initialization] A " << dawp.vst.vstName << " is being used" << std::endl;
-    std::cout << "\n[Member Initialization] Is the project quantized? " << (dawp.isQuantized ? "Yes" : "No") << std::endl;
+    dawp.dawpPtr->playBackComposition();
+    dawp.dawpPtr->applyAudioEffects("reverb", dawp.dawpPtr->vst);
+    dawp.dawpPtr->quantizeNotes();
+    std::cout << "\n[Member Initialization] A " << dawp.dawpPtr->vst.vstName << " is being used" << std::endl;
+    std::cout << "\n[Member Initialization] Is the project quantized? " << (dawp.dawpPtr->isQuantized ? "Yes" : "No") << std::endl;
     std::cout << "----------------\n";
 
 
@@ -585,23 +631,23 @@ int main()
 
 
 
-    bsa.provideRestingSpaceForPerformers();
-    bsa.storeCablesAndInstruments();
-    bsa.provideStorageForPersonalBelongings();
-    std::cout << "\n[Member Initialization] There are " << bsa.numOfAllLockers << " lockers in the backstage area" << std::endl;
+    bsa.bsaPtr->provideRestingSpaceForPerformers();
+    bsa.bsaPtr->storeCablesAndInstruments();
+    bsa.bsaPtr->provideStorageForPersonalBelongings();
+    std::cout << "\n[Member Initialization] There are " << bsa.bsaPtr->numOfAllLockers << " lockers in the backstage area" << std::endl;
     std::cout << "\n // Case 1: Demand < available lockers \n";
-    bsa.storePersonalBelongings();
+    bsa.bsaPtr->storePersonalBelongings();
     std::cout << "\n // Case 2: No lockers available (numOfEmptyLockers = 0) \n";
-    bsa1.storePersonalBelongings();
+    bsa1.bsaPtr->storePersonalBelongings();
     std::cout << "----------------\n";
 
 
 
-    ltr.illuminateTheStage();
-    ltr.changeLightingColorsAndPatterns(ltr.mainConsole);
-    ltr.synchronizeLightingWithMusic(ltr.mainConsole);
-    std::cout << "\n[Member Initialization] The lighting console type is " << ltr.lightingConsoleType << std::endl;
-    ltr.testDMXChannels();
+    ltr.ltrPtr->illuminateTheStage();
+    ltr.ltrPtr->changeLightingColorsAndPatterns(ltr.ltrPtr->mainConsole);
+    ltr.ltrPtr->synchronizeLightingWithMusic(ltr.ltrPtr->mainConsole);
+    std::cout << "\n[Member Initialization] The lighting console type is " << ltr.ltrPtr->lightingConsoleType << std::endl;
+    ltr.ltrPtr->testDMXChannels();
     std::cout << "----------------\n";
 
 
@@ -615,14 +661,14 @@ int main()
 
 
 
-    ar.displayOneDAWProject(ar.betcover);
-    ar.displayAllProjectName();
+    ar.arPtr->displayOneDAWProject(ar.arPtr->betcover);
+    ar.arPtr->displayAllProjectName();
     std::cout << "----------------\n";
 
 
 
-    ch.displayAllBackstageAreaSize();
-    ch.displayAllLightingRigType();
+    ch.chPtr->displayAllBackstageAreaSize();
+    ch.chPtr->displayAllLightingRigType();
     std::cout << "----------------\n";
 
 
@@ -634,20 +680,20 @@ int main()
     std::cout << "--------------- Project 5.2 'this' keyword ---------------\n";
     std::cout << "----------------------------------------------------------\n";
     //DAWProject
-    std::cout << "\ndaw track type: " << dawp.getTrackType() << " \ntime signature: " << dawp.timeSignature << std::endl;
-    dawp.printDetailedMemberInfo();
+    std::cout << "\ndaw track type: " << dawp.dawpPtr->getTrackType() << " \ntime signature: " << dawp.dawpPtr->timeSignature << std::endl;
+    dawp.dawpPtr->printDetailedMemberInfo();
 
     //VirtualStudioTechnology
     std::cout << "\nvst manufacturer: " << vst.getVstManufacturer() << " \nvst name: " << vst.vstName << std::endl;
     vst.printDetailedMemberInfo();
 
     //BackstageArea
-    std::cout << "\nbackstage can accomadate: " << bsa.getCapacity() << " people" << "\nbackstage size: " << bsa.backStageSize << std::endl;
-    bsa.printDetailedMemberInfo();
+    std::cout << "\nbackstage can accomadate: " << bsa.bsaPtr->getCapacity() << " people" << "\nbackstage size: " << bsa.bsaPtr->backStageSize << std::endl;
+    bsa.bsaPtr->printDetailedMemberInfo();
 
     //LightingRig
-    std::cout << "\nThe lighting rig has " << ltr.getNumOfScreens() << " screens" << "\nlighting rig height: " << ltr.heightOfRig << std::endl;
-    ltr.printDetailedMemberInfo();
+    std::cout << "\nThe lighting rig has " << ltr.ltrPtr->getNumOfScreens() << " screens" << "\nlighting rig height: " << ltr.ltrPtr->heightOfRig << std::endl;
+    ltr.ltrPtr->printDetailedMemberInfo();
 
     //LightingConsole
     std::cout << "\nThe lighting console has " << lc.getNumOfUsbPort() << " usb ports" << "\nlighting console weight: " << lc.weightOfConsole << std::endl;
