@@ -70,8 +70,8 @@ void Axe::aConstMemberFunction() const { }
 #include <iostream>
 #include "LeakedObjectDetector.h"
 #include "Wrappers.h"
-#include "AlbumRemake.h"//already included a DAWProject.h
-#include "ConcertHall.h"//already included a BackstageArea.h and LightingRig.h
+#include "AlbumRemake.h" // already included a DAWProject.h
+#include "ConcertHall.h" // already included a BackstageArea.h and LightingRig.h
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
