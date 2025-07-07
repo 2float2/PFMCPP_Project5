@@ -1,4 +1,5 @@
 #pragma once
+#include "DAWProject.h"
 
 /*
  new UDT 4:

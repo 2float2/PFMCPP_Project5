@@ -4,7 +4,7 @@ hidden = ["ccls"]
 modules = ["cpp-clang14"]
 
 [deployment]
-run = ["sh", "-c", "clang++ -std=c++17 -Wno-deprecated -Wno-padded -Weverything -Wno-c++98-compat -Wno-missing-prototypes main.cpp"]
+run = ["sh", "-c", "clang++ -std=c++17 -Wno-deprecated -Wno-padded -Weverything -Wno-c++98-compat -Wno-missing-prototypes main.cpp AlbumRemake.cpp BackstageArea.cpp ConcertHall.cpp DAWProject.cpp LightingRig.cpp Wrappers.cpp"]
 
 [nix]
 channel = "stable-24_05"

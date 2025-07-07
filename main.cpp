@@ -69,61 +69,7 @@ void Axe::aConstMemberFunction() const { }
 
 #include <iostream>
 #include "LeakedObjectDetector.h"
-
-
-struct DAWProjectWrapper
-{
-    DAWProjectWrapper(DAWProject* ptr) : dawpPtr(ptr) { }
-    ~DAWProjectWrapper() { delete dawpPtr; }
-    DAWProject* dawpPtr = nullptr;
-};
-
-
-
-
-
-struct BackstageAreaWrapper
-{
-    BackstageAreaWrapper(BackstageArea* ptr) : bsaPtr(ptr){ }
-    ~BackstageAreaWrapper() { delete bsaPtr;}
-    BackstageArea* bsaPtr = nullptr;
-};
-
-
-
-
-
-struct LightingRigWrapper
-{
-    LightingRigWrapper(LightingRig* ptr) : ltrPtr(ptr) { }
-    ~LightingRigWrapper() { delete ltrPtr; }
-    LightingRig* ltrPtr = nullptr;
-};
-
-
-
-
-
-struct AlbumRemakeWrapper
-{
-    AlbumRemakeWrapper(AlbumRemake* ptr) : arPtr(ptr) { }
-    ~AlbumRemakeWrapper() { delete arPtr; }
-    AlbumRemake* arPtr = nullptr;
-};
-
-
-
-
-
-
-struct ConcertHallWrapper
-{
-    ConcertHallWrapper(ConcertHall* ptr) : chPtr(ptr) { }
-    ~ConcertHallWrapper() { delete chPtr; }
-    ConcertHall* chPtr = nullptr;
-};
-
-
+#include "Wrappers.h"
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
