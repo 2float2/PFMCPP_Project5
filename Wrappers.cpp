@@ -1,5 +1,15 @@
 #include "Wrappers.h"
 
+DAWProjectWrapper::DAWProjectWrapper(DAWProject* ptr)
+    : dawpPtr(ptr)
+{
+}
+
+DAWProjectWrapper::~DAWProjectWrapper()
+{
+    delete dawpPtr;
+}
+
 LightingRigWrapper::LightingRigWrapper(LightingRig* ptr)
     : ltrPtr(ptr)
 {
