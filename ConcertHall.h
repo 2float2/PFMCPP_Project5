@@ -1,5 +1,9 @@
 #pragma once
 
+#include "LeakedObjectDetector.h"
+#include "BackstageArea.h"
+#include "LightingRig.h"
+
 /*
  new UDT 5:
  with 2 member functions

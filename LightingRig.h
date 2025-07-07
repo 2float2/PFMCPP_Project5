@@ -1,5 +1,7 @@
 #pragma once
 
+#include "LeakedObjectDetector.h"
+
 /*
  copied UDT 3:
  */
