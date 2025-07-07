@@ -29,16 +29,16 @@ struct DAWProject //1, Nested UDT
         int numOfPresets;
 
         void acceptMIDIInput() const;
-        void outputAudio(double outputVolume = 80.0) const;
-        std::string changePreset(std::string presetName) const;
-        void testMIDIInputChannels(int numOfMIDIInputChannels = 2) const;
+        void outputAudio(const double& outputVolume = 80.0) const;
+        std::string changePreset(const std::string& presetName) const;
+        void testMIDIInputChannels(const int& numOfMIDIInputChannels = 2) const;
         std::string getVstManufacturer() const;
         void printDetailedMemberInfo() const;
     };
 
     void playBack() const;
     void playBackComposition() const;
-    void applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse) const;
+    void applyAudioEffects(const std::string& effectName, const VirtualStudioTechnology& vstInUse) const;
     void quantizeNotes() const;
     std::string getTrackType() const;
     void printDetailedMemberInfo() const;

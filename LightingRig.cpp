@@ -30,12 +30,12 @@ void LightingRig::illuminateTheStage() const
     std::cout << "\nIlluminate the stage from " << heightOfRig << " metres high" << std::endl;
 }
 
-void LightingRig::changeLightingColorsAndPatterns(LightingConsole consoleInUse) const
+void LightingRig::changeLightingColorsAndPatterns(const LightingConsole& consoleInUse) const
 {
     std::cout << "\nChange lighting colors and patterns with " << consoleInUse.consoleName << std::endl;
 }
 
-void LightingRig::synchronizeLightingWithMusic(LightingConsole consoleInUse) const
+void LightingRig::synchronizeLightingWithMusic(const LightingConsole& consoleInUse) const
 {
     std::cout << "\nSynchronize lighting with music using " << consoleInUse.consoleName << std::endl;
 }
@@ -60,17 +60,17 @@ void LightingRig::printDetailedMemberInfo() const
     std::cout << "\nThe [LightingRig] has " << this->getNumOfScreens() << " screens" << "\nlighting rig height: " << this->heightOfRig << std::endl;
 }
 
-void LightingRig::LightingConsole::panAndTiltLights(int lightNumber, double panAngle, double tiltAngle) const
+void LightingRig::LightingConsole::panAndTiltLights(const int& lightNumber, const double& panAngle, double tiltAngle) const
 {
     std::cout << "\nPan and tilt light " << lightNumber << " to " << panAngle << " and " << tiltAngle << std::endl;
 }
 
-void LightingRig::LightingConsole::adjustLightIntensity(int lightNumber, double intensity) const
+void LightingRig::LightingConsole::adjustLightIntensity(const int& lightNumber, const double& intensity) const
 {
     std::cout << "\nAdjust the intensity of light " << lightNumber << " to " << intensity << std::endl;
 }
 
-void LightingRig::LightingConsole::changeGoboPattern(int lightNumber, std::string patternName) const
+void LightingRig::LightingConsole::changeGoboPattern(const int& lightNumber, const std::string& patternName) const
 {
     std::cout << "\nChange the gobo pattern of light " << lightNumber << " to " << consoleName << "'s default pattern: " << patternName << std::endl;
 }

@@ -28,9 +28,9 @@ struct LightingRig //9, Nested UDT
         double weightOfConsole = 120.0;
         std::string consoleName;
 
-        void panAndTiltLights(int lightNumber, double panAngle = 135.0, double tiltAngle = 45.0) const;
-        void adjustLightIntensity(int lightNumber, double intensity = 100.0) const;
-        void changeGoboPattern(int lightNumber, std::string patternName = "star") const;
+        void panAndTiltLights(const int& lightNumber, const double& panAngle = 135.0, double tiltAngle = 45.0) const;
+        void adjustLightIntensity(const int& lightNumber, const double& intensity = 100.0) const;
+        void changeGoboPattern(const int& lightNumber, const std::string& patternName = "star") const;
         void testFaders() const;
         int getNumOfUsbPort() const;
         void printDetailedMemberInfo() const;
@@ -38,8 +38,8 @@ struct LightingRig //9, Nested UDT
     };
 
     void illuminateTheStage() const;
-    void changeLightingColorsAndPatterns(LightingConsole consoleInUse) const;
-    void synchronizeLightingWithMusic(LightingConsole consoleInUse) const;
+    void changeLightingColorsAndPatterns(const LightingConsole& consoleInUse) const;
+    void synchronizeLightingWithMusic(const LightingConsole& consoleInUse) const;
     void testDMXChannels() const;
     int getNumOfScreens() const;
     void printDetailedMemberInfo() const;

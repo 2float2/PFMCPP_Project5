@@ -42,7 +42,7 @@ void DAWProject::playBackComposition() const
     }
 }
 
-void DAWProject::applyAudioEffects(std::string effectName, VirtualStudioTechnology vstInUse) const
+void DAWProject::applyAudioEffects(const std::string& effectName, const VirtualStudioTechnology& vstInUse) const
 {
     std::cout << "\nApply " << effectName << " of " << vstInUse.vstName << std::endl;
 }
@@ -67,17 +67,17 @@ void DAWProject::VirtualStudioTechnology::acceptMIDIInput() const
     std::cout << "\nCurrent VST accepts MIDI input? " << (supportsMIDI ? "Yes" : "No") << std::endl;
 }
 
-void DAWProject::VirtualStudioTechnology::outputAudio(double outputVolume) const
+void DAWProject::VirtualStudioTechnology::outputAudio(const double& outputVolume) const
 {
     std::cout << "\nOutput audio at " << outputVolume << "db" << std::endl;
 }
 
-std::string DAWProject::VirtualStudioTechnology::changePreset(std::string presetName) const
+std::string DAWProject::VirtualStudioTechnology::changePreset(const std::string& presetName) const
 {
     return presetName;
 }
 
-void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(int numOfMIDIInputChannels) const
+void DAWProject::VirtualStudioTechnology::testMIDIInputChannels(const int& numOfMIDIInputChannels) const
 {
     std::cout << "Testing MIDI input channels..." << std::endl;
     for (int i = 1; i < numOfMIDIInputChannels; ++i)
