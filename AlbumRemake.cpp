@@ -1,5 +1,5 @@
-#include "AlbumRemake.h"
 #include <iostream>
+#include "AlbumRemake.h"
 
 AlbumRemake::AlbumRemake(std::string name, std::string vst1, std::string vst2, std::string vst3) :
 albumName(name)

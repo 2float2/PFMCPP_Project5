@@ -1,5 +1,5 @@
-#include "BackstageArea.h"
 #include <iostream>
+#include "BackstageArea.h"
 
 BackstageArea::BackstageArea(double size) :
 numOfEmptyLockers(5),

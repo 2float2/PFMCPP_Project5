@@ -1,5 +1,6 @@
-#include "LightingRig.h"
 #include <iostream>
+#include "LightingRig.h"
+
 
 LightingRig::LightingConsole::LightingConsole(std::string name) :
 hasInternetConnectivity(true),

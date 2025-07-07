@@ -1,4 +1,11 @@
+#include <iostream>
 #include "Wrappers.h"
+
+struct DAWProject;
+struct LightingRig;
+struct BackstageArea;
+struct AlbumRemake;
+struct ConcertHall;
 
 DAWProjectWrapper::DAWProjectWrapper(DAWProject* ptr)
     : dawpPtr(ptr)

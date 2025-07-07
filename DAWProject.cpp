@@ -1,5 +1,6 @@
-#include "DAWProject.h"
 #include <iostream>
+#include "DAWProject.h"
+
 
 DAWProject::VirtualStudioTechnology::VirtualStudioTechnology(std::string vstn) :
 vstName(vstn),
