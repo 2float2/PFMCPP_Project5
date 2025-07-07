@@ -1,11 +1,10 @@
 #include <iostream>
 #include "Wrappers.h"
-
-struct DAWProject;
-struct LightingRig;
-struct BackstageArea;
-struct AlbumRemake;
-struct ConcertHall;
+#include "DAWProject.h"
+#include "BackstageArea.h"
+#include "LightingRig.h"
+#include "AlbumRemake.h"
+#include "ConcertHall.h"
 
 DAWProjectWrapper::DAWProjectWrapper(DAWProject* ptr)
     : dawpPtr(ptr)
@@ -35,16 +34,6 @@ BackstageAreaWrapper::BackstageAreaWrapper(BackstageArea* ptr)
 BackstageAreaWrapper::~BackstageAreaWrapper()
 {
     delete bsaPtr;
-}
-
-LightingRigWrapper::LightingRigWrapper(LightingRig* ptr)
-    : ltrPtr(ptr)
-{
-}
-
-LightingRigWrapper::~LightingRigWrapper()
-{
-    delete ltrPtr;
 }
 
 AlbumRemakeWrapper::AlbumRemakeWrapper(AlbumRemake* ptr)

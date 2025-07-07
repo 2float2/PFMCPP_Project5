@@ -1,3 +1,11 @@
+#pragma once
+
+struct DAWProject;
+struct BackstageArea;
+struct LightingRig;
+struct AlbumRemake;
+struct ConcertHall;
+
 struct DAWProjectWrapper
 {
     DAWProjectWrapper(DAWProject* ptr);
